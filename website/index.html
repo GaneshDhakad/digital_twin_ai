@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Twin AI — Personal Life Simulation & Decision Assistant</title>
+    <meta name="description" content="An award-winning, Apple & Stripe-inspired personal life simulation platform powered by Python 3.11, FastAPI, PostgreSQL, and Machine Learning.">
+    <!-- Google Fonts: Inter, Manrope, Sora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- STICKY NAVIGATION BAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-text">TWIN<span class="logo-accent">.OS</span></span>
+                <span class="logo-tag">DIGITAL TWIN AI v2.0</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#features" class="nav-link">Architecture & Domains</a>
+                <a href="#showcase" class="nav-link">Simulation Engine</a>
+                <a href="#statistics" class="nav-link">Intelligence</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="http://localhost:8501/" class="btn btn-primary btn-pill">Launch Digital Twin</a>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>System Architecture v2.0 Synchronized</span>
+                </div>
+                <h1 class="hero-title">
+                    Your Personal Life <br>
+                    <span class="gradient-text">Simulation Engine.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Architected in Python 3.11 & FastAPI, TWIN.OS continuously synchronizes 8 life domains with a 9-category Monte-Carlo simulator and a champion/challenger ML registry to forecast your future.
+                </p>
+                <div class="hero-buttons">
+                    <a href="http://localhost:8501/" class="btn btn-gradient btn-lg">
+                        <span>Start Your Simulation</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#features" class="btn btn-outline btn-lg">
+                        <span>Explore Architecture</span>
+                    </a>
+                </div>
+                <div class="hero-trust">
+                    <span>Powered by:</span>
+                    <span class="trust-pill">FastAPI 0.111</span>
+                    <span class="trust-pill">PostgreSQL 15</span>
+                    <span class="trust-pill">XGBoost & Prophet</span>
+                    <span class="trust-pill">Streamlit 1.36</span>
+                </div>
+            </div>
+
+            <!-- Animated Interactive Dashboard Mockup / Floating Glass Cards -->
+            <div class="hero-mockup-wrapper">
+                <div class="glass-card mockup-main-card">
+                    <div class="mockup-header">
+                        <div class="window-controls">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="window-title">TWIN.OS — Executive Digital Twin State Engine</span>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-stats-row">
+                            <div class="mockup-stat-box">
+                                <span class="stat-label">Net Savings Rate</span>
+                                <span class="stat-val">34.8%</span>
+                                <span class="stat-change positive">+4.2% vs target</span>
+                            </div>
+                            <div class="mockup-stat-box">
+                                <span class="stat-label">Study Focus Score</span>
+                                <span class="stat-val">91.4 / 100</span>
+                                <span class="stat-change positive">Cognitive peak at 09:00</span>
+                            </div>
+                            <div class="mockup-stat-box">
+                                <span class="stat-label">Active Goal Milestones</span>
+                                <span class="stat-val">8 / 8 On Track</span>
+                                <span class="stat-change positive">100% schedule alignment</span>
+                            </div>
+                        </div>
+                        <div class="mockup-chart-container">
+                            <div class="chart-header">
+                                <span>3-Year Net Worth Forecast (Champion Model: LightGBM)</span>
+                                <span class="badge-blue">RMSE: 142.1</span>
+                            </div>
+                            <div class="mockup-visual-chart">
+                                <div class="chart-bar" style="height: 35%;"><span>Year 1</span></div>
+                                <div class="chart-bar" style="height: 60%;"><span>Year 2</span></div>
+                                <div class="chart-bar active" style="height: 92%;"><span>Year 3</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Glass Mini Card 1 -->
+                <div class="floating-card float-1">
+                    <div class="float-icon blue-gradient">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <div class="float-content">
+                        <strong>5-Way Monte-Carlo</strong>
+                        <span>Risk Assessment &lt;5s</span>
+                    </div>
+                </div>
+
+                <!-- Floating Glass Mini Card 2 -->
+                <div class="floating-card float-2">
+                    <div class="float-icon purple-gradient">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="float-content">
+                        <strong>Champion Selector</strong>
+                        <span>Prophet / XGBoost / ARIMA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. FEATURES SECTION: 8 LIFE DOMAINS & ARCHITECTURE -->
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">ARCHITECTURAL SEPARATION OF CONCERNS</span>
+                <h2 class="section-title">8 Synchronized Life Domains. <br>One Intelligent Data Core.</h2>
+                <p class="section-subtitle">
+                    Unlike fragmented single-purpose trackers, Digital Twin AI unifies your life into a single normalized PostgreSQL 15 schema with 10 tables, analyzed by specialized machine learning engines.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature Card 1 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container blue-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 10v4M10 12h4"/></svg>
+                    </div>
+                    <h3>Financial Ledger</h3>
+                    <p>Track income, recurring expenses, and net savings rate. Feeds our Champion/Challenger Model Selector to forecast 6-month, 1-year, and 3-year net worth trajectories.</p>
+                    <div class="card-footer-tag">Prophet • ARIMA • XGBoost</div>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container purple-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h3>Study &amp; Career Intelligence</h3>
+                    <p>Log study duration, focus metrics, and task completion. Machine learning algorithms identify optimal cognitive peak windows and subject time allocation.</p>
+                    <div class="card-footer-tag">Random Forest • CatBoost</div>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container cyan-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h3>Habit Consistency Streaks</h3>
+                    <p>Monitor daily discipline across high, medium, and low impact habits. Automatic streak tracking alerts you when completion rates dip below the 60% threshold.</p>
+                    <div class="card-footer-tag">Isolation Forest • K-Means</div>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container green-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                    </div>
+                    <h3>Fitness &amp; Caloric Modeling</h3>
+                    <p>Log workouts across running, gym, yoga, and swimming. Analyzes weekly frequency and caloric burn to project long-term physical health goals.</p>
+                    <div class="card-footer-tag">Dynamic Health Engine</div>
+                </div>
+
+                <!-- Feature Card 5 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container blue-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Goal Milestones</h3>
+                    <p>Set target values and deadline milestones. Real-time progress bars calculate completion trajectory and identify at-risk deadlines automatically.</p>
+                    <div class="card-footer-tag">Real-time Trajectory</div>
+                </div>
+
+                <!-- Feature Card 6 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container purple-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    </div>
+                    <h3>9-Category Decision Simulator</h3>
+                    <p>Run what-if simulations across Financial, Career, Study, Fitness, and Investment choices. Evaluates 5-way scenarios: Current, Best, Expected, Worst, and Risk.</p>
+                    <div class="card-footer-tag">Monte-Carlo Risk Engine</div>
+                </div>
+
+                <!-- Feature Card 7 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container cyan-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <h3>Champion ML Model Registry</h3>
+                    <p>Transparently audits every trained model version in PostgreSQL. Automatically compares candidate algorithms and elevates the lowest-error model to Champion status.</p>
+                    <div class="card-footer-tag">RMSE • MAE • R² Auditing</div>
+                </div>
+
+                <!-- Feature Card 8 -->
+                <div class="glass-card feature-card">
+                    <div class="icon-container green-gradient">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3>Hybrid LLM Recommendations</h3>
+                    <p>Combines deterministic rule triggers with ML confidence scoring and LLM narration (OpenAI GPT-4o / Gemini) to generate actionable next-step advice.</p>
+                    <div class="card-footer-tag">Explainable AI Advice</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. STATISTICS SECTION -->
+    <section id="statistics" class="section stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <div class="stat-number" data-target="94.2" data-suffix="%">0%</div>
+                    <div class="stat-label">Champion Model Accuracy</div>
+                    <p class="stat-desc">Evaluated across Prophet, XGBoost, and LightGBM regression tests.</p>
+                </div>
+                <div class="glass-card stat-card">
+                    <div class="stat-number" data-target="8" data-suffix="">0</div>
+                    <div class="stat-label">Synchronized Life Domains</div>
+                    <p class="stat-desc">Unified in a single normalized PostgreSQL 15 relational schema.</p>
+                </div>
+                <div class="glass-card stat-card">
+                    <div class="stat-number" data-target="5" data-suffix="-Way">0</div>
+                    <div class="stat-label">Monte-Carlo Scenarios</div>
+                    <p class="stat-desc">Current, Best, Expected, Worst, and Risk percentiles in &lt;5 seconds.</p>
+                </div>
+                <div class="glass-card stat-card">
+                    <div class="stat-number" data-target="48" data-suffix="ms">0ms</div>
+                    <div class="stat-label">Average API Latency</div>
+                    <p class="stat-desc">Async FastAPI 0.111 endpoints with Redis caching layer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PRODUCT SHOWCASE (INTERACTIVE TABBED UI) -->
+    <section id="showcase" class="section showcase-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">INTERACTIVE PRODUCT SHOWCASE</span>
+                <h2 class="section-title">Designed for Absolute Clarity.</h2>
+                <p class="section-subtitle">
+                    Explore the core interfaces of TWIN.OS. Switch between the Executive Landing Dashboard, the 5-Way Decision Simulation Engine, and Explainable AI Recommendations.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="showcase-tabs">
+                <button class="tab-btn active" data-tab="tab-dashboard">Executive Dashboard</button>
+                <button class="tab-btn" data-tab="tab-simulation">5-Way Decision Simulator</button>
+                <button class="tab-btn" data-tab="tab-recommendations">AI Action Plans</button>
+            </div>
+
+            <!-- Tab Content 1: Executive Dashboard -->
+            <div id="tab-dashboard" class="showcase-content glass-card active">
+                <div class="showcase-split">
+                    <div class="showcase-text">
+                        <span class="badge-blue">Real-Time State Synchronization</span>
+                        <h3>Complete Command Over Your Financial &amp; Behavioral KPIs.</h3>
+                        <p>The Executive Dashboard presents a clean, glassmorphic HUD overview of your cumulative earnings, study consistency scores, active habit streaks, and target milestone countdowns.</p>
+                        <ul class="showcase-list">
+                            <li><strong>Unified Metrics:</strong> 4 high-contrast KPI cards with target variance.</li>
+                            <li><strong>Quick Module Action:</strong> One-click navigation to Profile, Financial Ledger, and Study systems.</li>
+                            <li><strong>Zero Sidebar Clutter:</strong> Unauthenticated users see only a clean login interface.</li>
+                        </ul>
+                    </div>
+                    <div class="showcase-visual">
+                        <div class="mockup-ui-card">
+                            <div class="mockup-header-sm"><span>TWIN.OS • HUD Overview</span></div>
+                            <div class="mockup-grid-2">
+                                <div class="mini-kpi"><span>Net Savings Rate</span><strong>34.8%</strong></div>
+                                <div class="mini-kpi"><span>Habit Streak</span><strong>21 Days</strong></div>
+                                <div class="mini-kpi"><span>Study Focus</span><strong>89.5/100</strong></div>
+                                <div class="mini-kpi"><span>Active Goals</span><strong>3 On Track</strong></div>
+                            </div>
+                            <div class="mini-alert success">
+                                <span>✔ Financial Discipline: High (88% consistency score)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: What-If Simulation Suite -->
+            <div id="tab-simulation" class="showcase-content glass-card">
+                <div class="showcase-split">
+                    <div class="showcase-text">
+                        <span class="badge-purple">Monte-Carlo Risk Engine</span>
+                        <h3>Simulate Life Decisions Before You Make Them.</h3>
+                        <p>Should you switch careers, purchase an apartment, or enroll in an intensive master's degree? TWIN.OS models 5 distinct future trajectories and computes your percentile risk score.</p>
+                        <ul class="showcase-list">
+                            <li><strong>5-Way Comparison:</strong> Side-by-side view of Current, Best, Expected, Worst, and Risk.</li>
+                            <li><strong>Emergency Fund Guardrail:</strong> Alerts you immediately if a decision breaks your 6-month buffer.</li>
+                            <li><strong>9 Decision Domains:</strong> Financial, Career, Study, Fitness, Lifestyle, Loan, and Custom.</li>
+                        </ul>
+                    </div>
+                    <div class="showcase-visual">
+                        <div class="mockup-ui-card">
+                            <div class="mockup-header-sm"><span>Simulation • Career Transition Scenario</span></div>
+                            <div class="sim-bars">
+                                <div class="sim-row"><span>Best Case (95th%)</span><div class="bar-fill blue" style="width: 90%;">+$142,000</div></div>
+                                <div class="sim-row"><span>Expected Path</span><div class="bar-fill purple" style="width: 72%;">+$98,500</div></div>
+                                <div class="sim-row"><span>Worst Case (5th%)</span><div class="bar-fill cyan" style="width: 45%;">+$41,000</div></div>
+                            </div>
+                            <div class="mini-alert warning">
+                                <span>⚡ Emergency Fund Buffer stays above 7.2 months across all scenarios.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: Explainable AI Recommendations -->
+            <div id="tab-recommendations" class="showcase-content glass-card">
+                <div class="showcase-split">
+                    <div class="showcase-text">
+                        <span class="badge-green">Explainable AI Advice</span>
+                        <h3>Actionable Next Steps with Full Mathematical Traceability.</h3>
+                        <p>No black-box mystery. Every recommendation generated by TWIN.OS cites the exact rule trigger, ML confidence score, and LLM explanation that created it.</p>
+                        <ul class="showcase-list">
+                            <li><strong>Confidence Scoring:</strong> Each recommendation is ranked from 0 to 100% confidence.</li>
+                            <li><strong>LLM Action Plan:</strong> Step-by-step narration generated by GPT-4o / Gemini.</li>
+                            <li><strong>Action Tracking:</strong> Mark recommendations as completed to update your twin state.</li>
+                        </ul>
+                    </div>
+                    <div class="showcase-visual">
+                        <div class="mockup-ui-card">
+                            <div class="mockup-header-sm"><span>AI Insight Panel • Priority Advice</span></div>
+                            <div class="rec-item">
+                                <div class="rec-title">
+                                    <strong>Shift $250/mo to Emergency Buffer</strong>
+                                    <span class="badge-blue">94% Confidence</span>
+                                </div>
+                                <p class="rec-desc">Rule trigger: Savings rate is 24% while 6-month liquidity buffer is at 4.8 months.</p>
+                            </div>
+                            <div class="rec-item">
+                                <div class="rec-title">
+                                    <strong>Schedule Machine Learning Study at 09:00 AM</strong>
+                                    <span class="badge-purple">88% Confidence</span>
+                                </div>
+                                <p class="rec-desc">Cognitive focus score averages 94.2 during morning windows.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. TESTIMONIALS SECTION -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">ENGAGEMENT &amp; ACCURACY</span>
+                <h2 class="section-title">Trusted by Systems Thinkers.</h2>
+                <p class="section-subtitle">See how software engineers, researchers, and data scientists use TWIN.OS to optimize their personal trajectory.</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="glass-card testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="test-quote">"The separation of concerns between the FastAPI backend and Streamlit frontend is brilliant. Having a real champion/challenger ML registry for my own finances feels like having a hedge fund risk desk."</p>
+                    <div class="test-author">
+                        <div class="author-avatar blue-avatar">AR</div>
+                        <div>
+                            <strong>Alex Rivera</strong>
+                            <span>Senior Systems Engineer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="test-quote">"The 5-way decision simulator helped me model taking a 6-month sabbatical for my master's degree. Seeing the worst-case emergency fund buffer stay above 6 months gave me total peace of mind."</p>
+                    <div class="test-author">
+                        <div class="author-avatar purple-avatar">SL</div>
+                        <div>
+                            <strong>Sophia Lin</strong>
+                            <span>Machine Learning Researcher</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="test-quote">"Most life trackers are just dumb spreadsheets. TWIN.OS actually synchronizes habit streaks and study focus scores to predict when my productivity is about to dip. A masterpiece of engineering."</p>
+                    <div class="test-author">
+                        <div class="author-avatar cyan-avatar">MD</div>
+                        <div>
+                            <strong>Marcus Dhakad</strong>
+                            <span>Software Architect</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. PRICING SECTION -->
+    <section id="pricing" class="section pricing-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">TRANSPARENT ARCHITECTURE</span>
+                <h2 class="section-title">Select Your Digital Twin Tier.</h2>
+                <p class="section-subtitle">Start with full 8-domain data logging for free, or unlock advanced Monte-Carlo simulations and Champion ML forecasting.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Pricing Card 1 -->
+                <div class="glass-card pricing-card">
+                    <div class="plan-name">Operator Free</div>
+                    <div class="plan-price">$0 <span>/ month</span></div>
+                    <p class="plan-desc">For individuals starting their personal life simulation.</p>
+                    <ul class="plan-features">
+                        <li>✔ Full 8-domain data collection</li>
+                        <li>✔ PostgreSQL 15 secure storage</li>
+                        <li>✔ Executive Dashboard HUD</li>
+                        <li>✔ Up to 50 financial records / mo</li>
+                        <li class="disabled">✖ Champion ML forecasting</li>
+                        <li class="disabled">✖ 5-Way Monte-Carlo simulation</li>
+                    </ul>
+                    <a href="http://localhost:8501/" class="btn btn-outline btn-full">Get Started Free</a>
+                </div>
+
+                <!-- Pricing Card 2 (Featured) -->
+                <div class="glass-card pricing-card featured-card">
+                    <div class="featured-badge">MOST POPULAR</div>
+                    <div class="plan-name">Pro Twin</div>
+                    <div class="plan-price">$19 <span>/ month</span></div>
+                    <p class="plan-desc">For serious operators optimizing their long-term trajectory.</p>
+                    <ul class="plan-features">
+                        <li>✔ Unlimited records across all 8 domains</li>
+                        <li>✔ Champion ML forecasting (Prophet &amp; XGBoost)</li>
+                        <li>✔ 9-Category What-If Simulation Suite</li>
+                        <li>✔ Explainable LLM Action Plans</li>
+                        <li>✔ Real-time emergency fund guardrails</li>
+                        <li>✔ Priority Redis caching</li>
+                    </ul>
+                    <a href="http://localhost:8501/" class="btn btn-gradient btn-full">Launch Pro Twin</a>
+                </div>
+
+                <!-- Pricing Card 3 -->
+                <div class="glass-card pricing-card">
+                    <div class="plan-name">Enterprise Simulation</div>
+                    <div class="plan-price">$99 <span>/ month</span></div>
+                    <p class="plan-desc">For researchers and custom decision engineering.</p>
+                    <ul class="plan-features">
+                        <li>✔ Everything in Pro Twin</li>
+                        <li>✔ Dedicated PostgreSQL instance</li>
+                        <li>✔ Custom ML model upload (.pkl / .joblib)</li>
+                        <li>✔ Full REST API &amp; Swagger access</li>
+                        <li>✔ Dedicated GPU simulation threads</li>
+                        <li>✔ 24/7 architecture support</li>
+                    </ul>
+                    <a href="http://localhost:8000/docs" class="btn btn-outline btn-full">View API Docs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FAQ SECTION (ACCORDION) -->
+    <section id="faq" class="section faq-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">FREQUENTLY ASKED QUESTIONS</span>
+                <h2 class="section-title">Everything You Need to Know.</h2>
+                <p class="section-subtitle">Answers regarding our software architecture, database security, and machine learning models.</p>
+            </div>
+
+            <div class="faq-accordion">
+                <!-- FAQ Item 1 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>How does TWIN.OS simulate personal life decisions?</span>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>TWIN.OS uses a 9-category simulation engine that takes your synchronized baseline state (from PostgreSQL) and projects it forward across 5 scenarios: Current Path, Best Case (95th percentile), Expected Path, Worst Case (5th percentile), and Risk Assessment. It checks your emergency fund buffer and target goal deadlines in real time.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Which machine learning algorithms power the forecasting engine?</span>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our Champion/Challenger Model Selector evaluates Prophet, ARIMA, XGBoost, and LightGBM for financial forecasting. For study and habit prediction, it compares Random Forest, XGBoost, and CatBoost. The model with the lowest Root Mean Square Error (RMSE) is automatically elevated to Champion status.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>Is my personal and financial data secure?</span>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes. Every API route is protected by JWT authentication with bcrypt password hashing (`passlib`). Data is stored in a normalized PostgreSQL 15 database where every table is strictly scoped by `user_id` with foreign key constraints, preventing any cross-user data leakage.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="glass-card faq-item">
+                    <button class="faq-question">
+                        <span>How do I run Digital Twin AI on my local machine?</span>
+                        <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Simply clone the GitHub repository and run `docker compose up` for full containerized deployment, or start the FastAPI server (`uvicorn main:app --port 8000`) and the Streamlit frontend (`streamlit run frontend/app.py`). Visit `http://localhost:8501/` to access the interface.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. BLOG PREVIEW SECTION -->
+    <section class="section blog-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">ARCHITECTURE INSIGHTS &amp; PAPERS</span>
+                <h2 class="section-title">Engineering Your Digital Twin.</h2>
+                <p class="section-subtitle">Read our technical deep dives on Python 3.11 software architecture, machine learning forecasting, and decision engineering.</p>
+            </div>
+
+            <div class="blog-grid">
+                <!-- Blog 1 -->
+                <div class="glass-card blog-card">
+                    <div class="blog-tag blue-tag">SYSTEM ARCHITECTURE</div>
+                    <h4>Architecting a Personal Digital Twin in Python 3.11 &amp; FastAPI</h4>
+                    <p>Why we chose a layered N-tier architecture over microservices for an 8-domain relational schema in PostgreSQL 15.</p>
+                    <a href="http://localhost:8000/docs" class="blog-link">Read Technical Paper →</a>
+                </div>
+
+                <!-- Blog 2 -->
+                <div class="glass-card blog-card">
+                    <div class="blog-tag purple-tag">MACHINE LEARNING</div>
+                    <h4>Champion/Challenger Forecasting: Prophet vs. XGBoost</h4>
+                    <p>A comparative analysis of time-series regression algorithms for predicting personal net worth and savings rate trajectories.</p>
+                    <a href="http://localhost:8000/docs" class="blog-link">Read Research Report →</a>
+                </div>
+
+                <!-- Blog 3 -->
+                <div class="glass-card blog-card">
+                    <div class="blog-tag green-tag">DECISION ENGINEERING</div>
+                    <h4>Monte-Carlo Simulation for Personal Life Strategies</h4>
+                    <p>How 5-way percentile risk scoring protects your 6-month emergency buffer during high-impact career and educational transitions.</p>
+                    <a href="http://localhost:8000/docs" class="blog-link">Read Simulation Guide →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. CTA SECTION -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="glass-card cta-card">
+                <div class="cta-content text-center">
+                    <span class="section-tag">BEGIN YOUR SIMULATION</span>
+                    <h2 class="cta-title">Enter Your Personal Digital Twin Today.</h2>
+                    <p class="cta-subtitle">
+                        Experience the precision of an award-winning state engine. Log your first financial and study records in less than 60 seconds.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="http://localhost:8501/" class="btn btn-gradient btn-lg">
+                            <span>Launch Digital Twin App</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="http://localhost:8000/docs" class="btn btn-outline btn-lg">
+                            <span>Explore REST API Docs</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="footer-col brand-col">
+                    <a href="#" class="nav-logo">
+                        <span class="logo-text">TWIN<span class="logo-accent">.OS</span></span>
+                    </a>
+                    <p class="footer-desc">
+                        Personal Life Simulation &amp; Decision Assistant Platform. Built with Python 3.11, FastAPI, PostgreSQL 15, and Streamlit.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" aria-label="GitHub">GitHub</a>
+                        <a href="http://localhost:8000/docs" aria-label="Swagger">Swagger</a>
+                        <a href="http://localhost:8000/redoc" aria-label="ReDoc">ReDoc</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Architecture</h5>
+                    <a href="#features">8 Life Domains</a>
+                    <a href="#showcase">Executive Dashboard</a>
+                    <a href="#showcase">5-Way Simulator</a>
+                    <a href="#showcase">AI Action Plans</a>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Documentation</h5>
+                    <a href="http://localhost:8000/docs">REST API (Swagger)</a>
+                    <a href="http://localhost:8000/redoc">ReDoc Specification</a>
+                    <a href="#faq">Security &amp; Privacy</a>
+                    <a href="#pricing">Tier Comparison</a>
+                </div>
+
+                <div class="footer-col newsletter-col">
+                    <h5>Operator Newsletter</h5>
+                    <p>Receive architecture updates and machine learning benchmarks.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to TWIN.OS updates!');">
+                        <input type="email" placeholder="operator@example.com" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Digital Twin AI • System Architecture Document v2.0 • Milestone 1 Certified.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security Audit</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

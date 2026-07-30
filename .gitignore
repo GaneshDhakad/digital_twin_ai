@@ -1,35 +1,115 @@
-# Python
+# ==========================================
+# Python & Bytecode Caches
+# ==========================================
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
+*$py.class
+*.so
 *.egg-info/
 *.egg
+.eggs/
+build/
+dist/
+.python-version
 
-# Virtual Environment
+# ==========================================
+# Virtual Environments
+# ==========================================
 venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
 
-# Environment variables
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
 
-# IDE
-.vscode/
-.idea/
-
-# Logs
-*.log
-
-# Database
+# ==========================================
+# Database & Storage
+# ==========================================
 *.db
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+*.db-journal
+*.db-shm
+*.db-wal
 
-# Test cache
+# ==========================================
+# Machine Learning Artifacts & Models
+# ==========================================
+ml_models/trained/*
+!ml_models/trained/.gitkeep
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+*.onnx
+*.model
+*.safetensors
+
+# ==========================================
+# Testing, Linting & Coverage
+# ==========================================
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
 
-# Streamlit
-.streamlit/
+# ==========================================
+# Streamlit & Web Frameworks
+# ==========================================
+.streamlit/secrets.toml
+node_modules/
+.next/
+out/
+.cache/
 
-# OS
+# ==========================================
+# Logs & Temporary Files
+# ==========================================
+*.log
+logs/
+*.tmp
+*.temp
+*.bak
+
+# ==========================================
+# IDEs, Code Editors & Tooling
+# ==========================================
+.vscode/
+.idea/
+.zed/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ==========================================
+# Operating System Files
+# ==========================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
