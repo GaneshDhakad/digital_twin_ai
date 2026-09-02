@@ -1,0 +1,24 @@
+{
+    "model_name": "RandomForestRegressor",
+    "problem_type": "regression",
+    "target": "disposable_income",
+    "dataset": "financial_clean.csv",
+    "version": "1.0",
+    "training_date": "2026-08-14T16:17:33.986792",
+    "rows": 20000,
+    "final_features": [
+        "income",
+        "age",
+        "dependents",
+        "occupation",
+        "city_tier",
+        "desired_savings_percentage",
+        "desired_savings"
+    ],
+    "metrics": {
+        "cv_primary": 3779.361445282767,
+        "validation_primary": 4587.404109386599,
+        "test_primary": 4679.922452541185,
+        "test_secondary": 2200.2841725361377
+    }
+}

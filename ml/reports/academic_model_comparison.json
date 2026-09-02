@@ -1,0 +1,72 @@
+[
+    {
+        "Model":"GradientBoostingRegressor",
+        "CV RMSE":4.1533324099,
+        "CV MAE":3.2296313974,
+        "CV R2":0.8717554936,
+        "Validation RMSE":4.1104673896,
+        "Validation MAE":3.195505618,
+        "Validation R2":0.8706198857,
+        "Training Time":103.0868709087
+    },
+    {
+        "Model":"Ridge",
+        "CV RMSE":4.185815906,
+        "CV MAE":3.2068366803,
+        "CV R2":0.869740952,
+        "Validation RMSE":4.139607042,
+        "Validation MAE":3.1716284599,
+        "Validation R2":0.8687789977,
+        "Training Time":1.8003621101
+    },
+    {
+        "Model":"LinearRegression",
+        "CV RMSE":4.1861486615,
+        "CV MAE":3.2082600141,
+        "CV R2":0.8697203802,
+        "Validation RMSE":4.140607699,
+        "Validation MAE":3.1750673828,
+        "Validation R2":0.8687155506,
+        "Training Time":2.0847167969
+    },
+    {
+        "Model":"RandomForestRegressor",
+        "CV RMSE":4.2269440534,
+        "CV MAE":3.3192635714,
+        "CV R2":0.8671668333,
+        "Validation RMSE":4.162048481,
+        "Validation MAE":3.2655591667,
+        "Validation R2":0.8673524033,
+        "Training Time":315.5303075314
+    },
+    {
+        "Model":"ExtraTreesRegressor",
+        "CV RMSE":4.2453875234,
+        "CV MAE":3.3368151786,
+        "CV R2":0.8660045607,
+        "Validation RMSE":4.1744821795,
+        "Validation MAE":3.2852066667,
+        "Validation R2":0.866558677,
+        "Training Time":246.7862312794
+    },
+    {
+        "Model":"Lasso",
+        "CV RMSE":4.3015027868,
+        "CV MAE":3.3984520104,
+        "CV R2":0.8624464236,
+        "Validation RMSE":4.2378076951,
+        "Validation MAE":3.3389835507,
+        "Validation R2":0.862479448,
+        "Training Time":1.9953446388
+    },
+    {
+        "Model":"XGBRegressor",
+        "CV RMSE":4.2815981806,
+        "CV MAE":3.3178865532,
+        "CV R2":0.8637149572,
+        "Validation RMSE":4.2382219382,
+        "Validation MAE":3.2942008429,
+        "Validation R2":0.8624525666,
+        "Training Time":4.3543846607
+    }
+]

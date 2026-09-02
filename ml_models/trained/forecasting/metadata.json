@@ -1,0 +1,15 @@
+{
+    "model_name": "XGBRegressor",
+    "problem_type": "regression",
+    "target": "next_month_spending",
+    "dataset": "transaction_forecasting_clean.csv",
+    "version": "1.0",
+    "training_date": "2026-08-14T17:01:30.672142",
+    "metrics": {
+        "cv_rmse": 1237.2756247845086,
+        "validation_rmse": 1197.7359136801774,
+        "test_rmse": 1207.0354541115503,
+        "test_mae": 898.4003039295418,
+        "test_r2": 0.8594675610360691
+    }
+}

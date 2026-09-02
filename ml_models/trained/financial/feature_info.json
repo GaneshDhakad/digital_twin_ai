@@ -1,0 +1,57 @@
+{
+    "final_features": [
+        "income",
+        "age",
+        "dependents",
+        "occupation",
+        "city_tier",
+        "desired_savings_percentage",
+        "desired_savings"
+    ],
+    "numerical_features": [
+        "income",
+        "age",
+        "dependents",
+        "desired_savings_percentage",
+        "desired_savings"
+    ],
+    "categorical_features": [
+        "occupation",
+        "city_tier"
+    ],
+    "removed_features": [
+        "id",
+        "client_id",
+        "total_expenses",
+        "calculated_savings",
+        "expense_ratio",
+        "saving_rate",
+        "financial_stability_score",
+        "potential_savings_groceries",
+        "potential_savings_transport",
+        "potential_savings_eating_out",
+        "potential_savings_entertainment",
+        "potential_savings_utilities",
+        "potential_savings_healthcare",
+        "potential_savings_education",
+        "potential_savings_miscellaneous",
+        "groceries",
+        "transport",
+        "eating_out",
+        "entertainment",
+        "utilities",
+        "healthcare",
+        "education",
+        "miscellaneous",
+        "rent",
+        "loan_repayment",
+        "insurance"
+    ],
+    "removal_reasons": {
+        "id": "Identifier",
+        "client_id": "Identifier",
+        "total_expenses": "Target leakage (derived)",
+        "calculated_savings": "Target leakage"
+    },
+    "preprocessing": "SimpleImputer + StandardScaler for num, SimpleImputer + OneHotEncoder for cat"
+}

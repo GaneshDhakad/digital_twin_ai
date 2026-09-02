@@ -1,0 +1,38 @@
+{
+    "fitness": {
+        "model_path": "C:\\Users\\gkdha\\OneDrive\\Desktop\\INFO_PROJECT\\digital_twin_ai\\backend\\app\\ml_models\\fitness\\model.joblib",
+        "model_name": "DecisionTreeClassifier",
+        "target": "activity_level",
+        "problem_type": "classification",
+        "version": "1.0",
+        "primary_metric": "F1",
+        "primary_metric_value": 0.2448239232222163
+    },
+    "lifestyle": {
+        "model_path": "backend/app/ml_models\\lifestyle\\model.joblib",
+        "model_name": "LogisticRegression",
+        "target": "sleep_disorder",
+        "problem_type": "classification",
+        "version": "1.0",
+        "primary_metric": "F1",
+        "primary_metric_value": 0.9111111111111111
+    },
+    "financial": {
+        "model_path": "backend/app/ml_models\\financial\\model.joblib",
+        "model_name": "RandomForestRegressor",
+        "target": "disposable_income",
+        "problem_type": "regression",
+        "version": "1.0",
+        "primary_metric": "RMSE",
+        "primary_metric_value": 4679.922452541185
+    },
+    "forecasting": {
+        "model_path": "C:\\Users\\gkdha\\OneDrive\\Desktop\\INFO_PROJECT\\digital_twin_ai\\backend\\app\\ml_models\\forecasting\\model.joblib",
+        "model_name": "XGBRegressor",
+        "target": "next_month_spending",
+        "problem_type": "regression",
+        "version": "1.0",
+        "primary_metric": "RMSE",
+        "primary_metric_value": 1207.0354541115503
+    }
+}

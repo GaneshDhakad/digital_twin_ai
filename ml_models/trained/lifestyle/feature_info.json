@@ -1,0 +1,43 @@
+{
+    "final_features": [
+        "gender",
+        "age",
+        "occupation",
+        "sleep_hours",
+        "sleep_quality",
+        "physical_activity_level",
+        "stress_level",
+        "bmi_category",
+        "blood_pressure",
+        "heart_rate",
+        "daily_steps",
+        "activity_sleep_balance",
+        "lifestyle_risk_score"
+    ],
+    "numerical_features": [
+        "age",
+        "sleep_hours",
+        "sleep_quality",
+        "physical_activity_level",
+        "stress_level",
+        "heart_rate",
+        "daily_steps",
+        "activity_sleep_balance",
+        "lifestyle_risk_score"
+    ],
+    "categorical_features": [
+        "gender",
+        "occupation",
+        "bmi_category",
+        "blood_pressure"
+    ],
+    "removed_features": [
+        "id",
+        "client_id"
+    ],
+    "removal_reasons": {
+        "id": "Identifier",
+        "client_id": "Identifier"
+    },
+    "preprocessing": "SimpleImputer + StandardScaler for num, SimpleImputer + OneHotEncoder for cat"
+}

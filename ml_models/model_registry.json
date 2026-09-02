@@ -1,0 +1,34 @@
+{
+    "academic": {
+        "model_path": "ml_models/trained/academic/model.joblib",
+        "model_name": "GradientBoostingRegressor",
+        "target": "exam_score",
+        "problem_type": "regression",
+        "version": "1.0"
+    },
+    "lifestyle": {
+        "model_path": "ml_models/trained/lifestyle/model.joblib",
+        "model_name": "LogisticRegression",
+        "target": "sleep_disorder",
+        "problem_type": "classification",
+        "version": "1.0"
+    },
+    "financial": {
+        "model_path": "ml_models/trained/financial/model.joblib",
+        "model_name": "RandomForestRegressor",
+        "target": "disposable_income",
+        "problem_type": "regression",
+        "version": "1.0"
+    },
+    "forecasting": {
+        "model_path": "ml_models/trained/forecasting/model.joblib",
+        "model_name": "XGBRegressor",
+        "target": "next_month_spending",
+        "problem_type": "regression",
+        "version": "1.0"
+    },
+    "fitness": {
+        "available": false,
+        "note": "Not integrated in Phase 3"
+    }
+}

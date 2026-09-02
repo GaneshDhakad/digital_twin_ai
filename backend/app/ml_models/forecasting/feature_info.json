@@ -1,0 +1,59 @@
+{
+    "final_features": [
+        "month",
+        "total_signed_amount",
+        "total_absolute_amount",
+        "positive_amount",
+        "negative_amount",
+        "transaction_count",
+        "positive_transaction_count",
+        "negative_transaction_count",
+        "average_transaction_amount",
+        "unique_merchants",
+        "unique_cards",
+        "error_count",
+        "total_absolute_amount_lag_1",
+        "total_absolute_amount_rolling_3m",
+        "positive_amount_lag_1",
+        "positive_amount_rolling_3m",
+        "negative_amount_lag_1",
+        "negative_amount_rolling_3m",
+        "transaction_count_lag_1",
+        "transaction_count_rolling_3m"
+    ],
+    "numerical_features": [
+        "total_signed_amount",
+        "total_absolute_amount",
+        "positive_amount",
+        "negative_amount",
+        "transaction_count",
+        "positive_transaction_count",
+        "negative_transaction_count",
+        "average_transaction_amount",
+        "unique_merchants",
+        "unique_cards",
+        "error_count",
+        "total_absolute_amount_lag_1",
+        "total_absolute_amount_rolling_3m",
+        "positive_amount_lag_1",
+        "positive_amount_rolling_3m",
+        "negative_amount_lag_1",
+        "negative_amount_rolling_3m",
+        "transaction_count_lag_1",
+        "transaction_count_rolling_3m"
+    ],
+    "categorical_features": [
+        "month"
+    ],
+    "removed_features": [
+        "client_id",
+        "next_month_transaction_count",
+        "month_date"
+    ],
+    "removal_reasons": {
+        "client_id": "Identifier",
+        "next_month_transaction_count": "Future target information",
+        "month_date": "Used for chronological sorting"
+    },
+    "split_strategy": "Chronological 80/10/10"
+}

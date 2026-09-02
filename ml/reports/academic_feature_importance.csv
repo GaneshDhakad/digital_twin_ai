@@ -1,0 +1,61 @@
+Feature,Importance
+previous_gpa,0.9990403840305447
+wellbeing_score,0.00011178126090252027
+attendance_percentage,8.837657205773145e-05
+digital_distraction_hours,8.830945988549677e-05
+stress_level,8.37101898969383e-05
+study_hours_per_day,7.840624783713124e-05
+study_efficiency,7.107351880395963e-05
+sleep_hours,6.617137125212162e-05
+screen_time,5.5760963060657706e-05
+mental_health_rating,4.8663009462978495e-05
+social_media_hours,4.32798834387328e-05
+netflix_hours,3.2758395114743766e-05
+time_management_score,2.88283677614425e-05
+age,2.208010691913659e-05
+parental_support_level,1.8575241239720966e-05
+semester,1.5369214252091357e-05
+social_activity,1.0908948983055582e-05
+study_environment_Co-Learning Group,1.0624314279777121e-05
+internet_quality_Low,9.309651524752228e-06
+learning_style_Visual,8.821688415818477e-06
+parental_education_level_High School,7.63180923861604e-06
+diet_quality_Good,7.1833395357771945e-06
+study_environment_Dorm,6.46175595683326e-06
+exercise_frequency,5.758005936932627e-06
+parental_education_level_PhD,5.710069192985858e-06
+exam_anxiety_score,5.036626205798525e-06
+parental_education_level_Master,3.845854108563938e-06
+major_Psychology,3.830437495408436e-06
+major_Biology,3.378992656555576e-06
+diet_quality_Fair,3.1530978590013937e-06
+family_income_range_Low,3.1149071517265034e-06
+access_to_tutoring_Yes,2.947436047198333e-06
+major_Engineering,2.5561662422081036e-06
+motivation_level,2.251321217853393e-06
+major_Business,2.1122703417474155e-06
+study_environment_Library,9.684913780551617e-07
+family_income_range_High,6.169303735084577e-07
+learning_style_Kinesthetic,2.441902053095861e-07
+gender_Female,5.863222675174047e-09
+internet_quality_High,0.0
+study_environment_Quiet Room,0.0
+learning_style_Reading,0.0
+gender_Other,0.0
+learning_style_Auditory,0.0
+family_income_range_Medium,0.0
+major_Arts,0.0
+major_Computer Science,0.0
+part_time_job_No,0.0
+access_to_tutoring_No,0.0
+diet_quality_Poor,0.0
+gender_Male,0.0
+parental_education_level_Bachelor,0.0
+parental_education_level_Some College,0.0
+study_environment_Cafe,0.0
+dropout_risk_Yes,0.0
+dropout_risk_No,0.0
+extracurricular_participation_Yes,0.0
+extracurricular_participation_No,0.0
+internet_quality_Medium,0.0
+part_time_job_Yes,0.0
