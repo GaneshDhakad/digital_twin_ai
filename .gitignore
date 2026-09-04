@@ -126,3 +126,8 @@ $RECYCLE.BIN/
 # ==========================================
 # Local path listing
 project_paths.txt
+
+# Allow deployed ML model artifacts
+!backend/app/ml_models/
+!backend/app/ml_models/*/
+!backend/app/ml_models/*/model.joblib
