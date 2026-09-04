@@ -93,7 +93,7 @@ class LifestylePredictionRequest(BaseModel):
 class LifestylePredictionResponse(BaseModel):
     model_config = ConfigDict(protected_namespaces=())
 
-    prediction: str          # Classification: e.g. "Insomnia", "Sleep Apnea", "None"
+    prediction: str          # 3-class sleep-disorder classification: "Normal", "Insomnia", or "Sleep Apnea"
     model_name: str
     model_version: str
     target: str

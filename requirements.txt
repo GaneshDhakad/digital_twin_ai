@@ -45,3 +45,7 @@ python-multipart==0.0.9
 black==24.4.2
 isort==5.13.2
 locust==2.29.1
+
+# Gemini LLM SDK (Milestone 4 — AI Backend Service)
+# NOTE: google-generativeai (0.8.x) is deprecated; use google-genai instead
+google-genai>=1.0.0

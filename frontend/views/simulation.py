@@ -20,21 +20,21 @@ if not st.session_state.get("authenticated"):
 
 render_sidebar()
 
-st.title("Decision Simulation Engine")
-st.markdown("9-Category decision simulator with 5-way scenario projection (Current Path, Best, Expected, Worst, Risk).")
+st.title("Decision Simulation")
+st.markdown("What happens if you change something? Run 'What-If' scenarios across your 9 life categories to see the projected impact.")
 
 categories = ["Financial", "Study", "Career", "Fitness", "Lifestyle", "Investment", "Loan", "Emergency Scenario", "Custom Scenario"]
 
 col1, col2 = st.columns([1, 2])
 
 with col1:
-    st.subheader("New Simulation")
-    sel_cat = st.selectbox("Decision Category", categories)
+    st.subheader("WHAT IF?")
+    sel_cat = st.selectbox("I want to change...", categories)
     
     impact = st.number_input("Estimated Impact (Score / $ / Hours)", value=50)
     extra_param = st.text_input("Additional Parameters (optional)")
     
-    if st.button("🔮 Run Simulation", use_container_width=True):
+    if st.button("🔮 SIMULATE", use_container_width=True):
         with st.spinner("Running Monte Carlo Simulation..."):
             req_data = {
                 "decision_type": sel_cat,
@@ -48,7 +48,7 @@ with col1:
                 st.error(f"Simulation failed: {res.get('error') if res else 'Unknown'}")
 
 with col2:
-    st.subheader("Simulation Results")
+    st.subheader("Projected Impact")
     last_sim = st.session_state.get("last_sim")
     if last_sim:
         st.markdown(f"**Category:** {last_sim.get('decision_type')} | **Confidence:** {last_sim.get('confidence_score')}")

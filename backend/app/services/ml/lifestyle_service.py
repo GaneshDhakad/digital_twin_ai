@@ -2,7 +2,14 @@
 lifestyle_service.py
 Business logic for sleep disorder classification (lifestyle model).
 
-Uses the pre-trained LogisticRegression pipeline.
+Uses the pre-trained GradientBoostingClassifier pipeline.
+
+The model predicts one of three classes:
+    Normal      — no significant sleep disorder risk detected
+    Insomnia    — pattern consistent with insomnia-related profile
+    Sleep Apnea — pattern consistent with sleep apnea-related profile
+
+These are project-level classification labels, NOT clinical diagnoses.
 """
 from __future__ import annotations
 
@@ -10,7 +17,7 @@ import hashlib
 import json
 import logging
 from datetime import datetime, timezone, timedelta
-from typing import Any
+from typing import Any, Dict
 
 import pandas as pd
 from sqlalchemy.orm import Session
@@ -23,6 +30,9 @@ logger = logging.getLogger(__name__)
 
 DOMAIN = "lifestyle"
 CACHE_TTL_HOURS = 24
+
+# Valid Lifestyle ML prediction classes (3-class classifier)
+LIFESTYLE_VALID_CLASSES = {"Normal", "Insomnia", "Sleep Apnea"}
 
 
 def _make_cache_key(user_id: Any, request: LifestylePredictionRequest) -> str:
@@ -54,7 +64,11 @@ def predict_sleep_disorder(
     user_id: Any,
     db: Session,
 ) -> LifestylePredictionResponse:
-    """Classify sleep disorder risk using the lifestyle model."""
+    """Classify sleep disorder risk using the GradientBoostingClassifier lifestyle model.
+
+    Returns one of: Normal | Insomnia | Sleep Apnea
+    These are model classification labels, not clinical diagnoses.
+    """
     cache_key = _make_cache_key(user_id, request)
     now = datetime.now(timezone.utc)
 
@@ -93,7 +107,7 @@ def predict_sleep_disorder(
     response = LifestylePredictionResponse(
         prediction=prediction_str,
         model_name=meta["model_name"],
-        model_version=meta.get("version", "1.0"),
+        model_version=meta.get("version", "2.0"),
         target=meta["target"],
         timestamp=now,
     )
@@ -132,12 +146,21 @@ def predict_sleep_disorder(
 
     return response
 
+
 def get_digital_twin_prediction(user_id: Any, db: Session) -> Dict[str, Any]:
     """
-    Get the latest lifestyle prediction for the Digital Twin.
+    Get the latest lifestyle sleep-disorder classification prediction for the Digital Twin.
+
+    Returns one of:
+        {"status": "available", "prediction": "Normal"|"Insomnia"|"Sleep Apnea", ...}
+        {"status": "insufficient_data", "prediction": None, "reason": "..."}
+        {"status": "model_unavailable", "prediction": None, "reason": "..."}
+
+    The prediction field, when available, is the model's classification label.
+    This is NOT a clinical diagnosis.
     """
     now = datetime.now(timezone.utc)
-    
+
     try:
         recent_caches = (
             db.query(PredictionCache)
@@ -161,5 +184,6 @@ def get_digital_twin_prediction(user_id: Any, db: Session) -> Dict[str, Any]:
     return {
         "status": "insufficient_data",
         "prediction": None,
-        "reason": "Missing required lifestyle features (e.g., blood_pressure, occupation, sleep_quality)"
+        "reason": "Missing required lifestyle features (e.g., blood_pressure, occupation, sleep_quality). "
+                  "Use the Lifestyle ML form to generate a sleep-disorder classification prediction.",
     }

@@ -282,9 +282,201 @@ class TestLifestylePrediction:
         assert resp.status_code == 422
 
 
+
 # ─────────────────────────────────────────────────────────────────────────────
-# FINANCIAL
+# LIFESTYLE — 3-CLASS CONTRACT TESTS (Normal / Insomnia / Sleep Apnea)
+# These tests verify the new GradientBoostingClassifier 3-class model contract.
 # ─────────────────────────────────────────────────────────────────────────────
+
+# Payload designed to yield a Normal prediction (low stress, good sleep)
+_NORMAL_LIFESTYLE_PAYLOAD = {
+    "gender": "Male",
+    "age": 28,
+    "occupation": "Engineer",
+    "sleep_hours": 8.0,
+    "sleep_quality": 9.0,
+    "physical_activity_level": 75.0,
+    "stress_level": 2.0,
+    "bmi_category": "Normal",
+    "blood_pressure": "115/75",
+    "heart_rate": 65.0,
+    "daily_steps": 10000.0,
+    "activity_sleep_balance": 80.0,
+    "lifestyle_risk_score": 15.0,
+}
+
+# Payload designed to yield an Insomnia prediction (poor sleep, high stress)
+_INSOMNIA_LIFESTYLE_PAYLOAD = {
+    "gender": "Female",
+    "age": 35,
+    "occupation": "Manager",
+    "sleep_hours": 5.0,
+    "sleep_quality": 3.0,
+    "physical_activity_level": 20.0,
+    "stress_level": 9.0,
+    "bmi_category": "Overweight",
+    "blood_pressure": "130/85",
+    "heart_rate": 82.0,
+    "daily_steps": 3000.0,
+    "activity_sleep_balance": 25.0,
+    "lifestyle_risk_score": 75.0,
+}
+
+# Payload designed to yield a Sleep Apnea prediction (obese, high BP, low steps)
+_SLEEP_APNEA_LIFESTYLE_PAYLOAD = {
+    "gender": "Male",
+    "age": 50,
+    "occupation": "Salesperson",
+    "sleep_hours": 7.0,
+    "sleep_quality": 4.0,
+    "physical_activity_level": 15.0,
+    "stress_level": 6.0,
+    "bmi_category": "Obese",
+    "blood_pressure": "145/95",
+    "heart_rate": 90.0,
+    "daily_steps": 2000.0,
+    "activity_sleep_balance": 20.0,
+    "lifestyle_risk_score": 85.0,
+}
+
+# The complete set of valid 3-class labels
+_VALID_LIFESTYLE_CLASSES = {"Normal", "Insomnia", "Sleep Apnea"}
+
+
+class TestLifestyle3ClassContract:
+    """
+    Verify the 3-class Lifestyle ML contract: Normal / Insomnia / Sleep Apnea.
+    Tests that:
+    1. Prediction is always one of the three valid classes (never "None" or "undefined")
+    2. Model name is GradientBoostingClassifier
+    3. Model version is 2.0
+    4. Target is sleep_disorder
+    5. Each payload returns a string prediction in the valid class set
+    """
+
+    def test_lifestyle_prediction_is_one_of_three_valid_classes(self):
+        """Any valid lifestyle payload must return Normal, Insomnia, or Sleep Apnea."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_VALID_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        assert resp.status_code == 200, resp.text
+        pred = resp.json()["prediction"]
+        assert pred in _VALID_LIFESTYLE_CLASSES, (
+            f"Prediction '{pred}' is not one of the valid 3-class labels: {_VALID_LIFESTYLE_CLASSES}"
+        )
+
+    def test_lifestyle_prediction_never_returns_none_class(self):
+        """The 3-class model must never return the old 2-class 'None' label."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_VALID_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        pred = resp.json()["prediction"]
+        assert pred != "None", "The 3-class model must not return the old 'None' class."
+
+    def test_lifestyle_model_is_gradient_boosting(self):
+        """Model name must reflect the new GradientBoostingClassifier."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_VALID_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        data = resp.json()
+        assert data["model_name"] == "GradientBoostingClassifier", (
+            f"Expected GradientBoostingClassifier but got '{data['model_name']}'"
+        )
+
+    def test_lifestyle_model_version_is_v2(self):
+        """Model version must be 2.0 (the new 3-class model)."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_VALID_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        data = resp.json()
+        assert data["model_version"] == "2.0", (
+            f"Expected version 2.0 but got '{data['model_version']}'"
+        )
+
+    def test_normal_profile_returns_valid_class(self):
+        """A healthy sleep profile must return one of the three valid classes."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_NORMAL_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        assert resp.status_code == 200, resp.text
+        pred = resp.json()["prediction"]
+        assert pred in _VALID_LIFESTYLE_CLASSES, (
+            f"Normal profile returned invalid class: '{pred}'"
+        )
+
+    def test_insomnia_profile_returns_valid_class(self):
+        """A high-stress, poor-sleep profile must return one of the three valid classes."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_INSOMNIA_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        assert resp.status_code == 200, resp.text
+        pred = resp.json()["prediction"]
+        assert pred in _VALID_LIFESTYLE_CLASSES, (
+            f"Insomnia-profile returned invalid class: '{pred}'"
+        )
+
+    def test_sleep_apnea_profile_returns_valid_class(self):
+        """An obese/high-BP profile must return one of the three valid classes."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_SLEEP_APNEA_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        assert resp.status_code == 200, resp.text
+        pred = resp.json()["prediction"]
+        assert pred in _VALID_LIFESTYLE_CLASSES, (
+            f"Sleep Apnea profile returned invalid class: '{pred}'"
+        )
+
+    def test_lifestyle_prediction_is_string_not_numeric(self):
+        """Lifestyle prediction must always be a string class label, never a number."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_VALID_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        val = resp.json()["prediction"]
+        assert isinstance(val, str), f"Expected string but got {type(val)}"
+        assert not val.isnumeric(), "Prediction must be a class name, not a number."
+
+    def test_lifestyle_response_has_all_required_fields(self):
+        """Response must include prediction, model_name, model_version, target, timestamp."""
+        resp = client.post(
+            "/api/ml/lifestyle/predict",
+            json=_VALID_LIFESTYLE_PAYLOAD,
+            headers=_get_auth_headers(),
+        )
+        data = resp.json()
+        for field in ("prediction", "model_name", "model_version", "target", "timestamp"):
+            assert field in data, f"Missing required field: '{field}'"
+
+    def test_model_status_shows_lifestyle_available(self):
+        """GET /api/ml/models must show lifestyle as available with 3-class metadata."""
+        resp = client.get("/api/ml/models")
+        data = resp.json()
+        ls = data.get("lifestyle", {})
+        assert ls.get("available") is True, "Lifestyle model must be available."
+        assert ls.get("model") == "GradientBoostingClassifier", (
+            f"Expected GradientBoostingClassifier but got '{ls.get('model')}'"
+        )
+        assert ls.get("target") == "sleep_disorder", (
+            f"Target must be 'sleep_disorder' but got '{ls.get('target')}'"
+        )
+
+
+
 
 _VALID_FINANCIAL_PAYLOAD = {
     "income": 75000.0,

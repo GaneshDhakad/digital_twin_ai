@@ -28,10 +28,11 @@ if "user" not in st.session_state:
 # Define Pages
 login_page = st.Page("views/login.py", title="Sign In / Register", icon="🔐")
 dashboard_page = st.Page("views/dashboard.py", title="Dashboard", icon="📊", default=True)
-profile_page = st.Page("views/profile.py", title="User Profile", icon="👤")
-financial_page = st.Page("views/financial.py", title="Financial Ledger", icon="💳")
+profile_page = st.Page("views/profile.py", title="My Profile", icon="👤")
+financial_page = st.Page("views/financial.py", title="Financial Health", icon="💳")
 study_page = st.Page("views/study.py", title="Study & Academics", icon="📚")
 habits_page = st.Page("views/habits.py", title="Habits & Fitness", icon="🏋️")
+ai_intelligence_page = st.Page("views/ai_intelligence.py", title="AI Intelligence", icon="🤖")
 forecasting_page = st.Page("views/forecasting.py", title="AI Forecasting", icon="📈")
 simulation_page = st.Page("views/simulation.py", title="Decision Simulation", icon="🔮")
 
@@ -41,6 +42,7 @@ st.session_state["profile_page"] = profile_page
 st.session_state["financial_page"] = financial_page
 st.session_state["study_page"] = study_page
 st.session_state["habits_page"] = habits_page
+st.session_state["ai_intelligence_page"] = ai_intelligence_page
 st.session_state["forecasting_page"] = forecasting_page
 st.session_state["simulation_page"] = simulation_page
 
@@ -49,8 +51,9 @@ if not st.session_state["authenticated"]:
 else:
     pg = st.navigation({
         "Overview": [dashboard_page, profile_page],
-        "Life Modules": [financial_page, study_page, habits_page],
-        "AI Intelligence": [forecasting_page, simulation_page]
+        "Life": [financial_page, study_page, habits_page],
+        "Intelligence": [ai_intelligence_page, forecasting_page, simulation_page]
     })
 
 pg.run()
+

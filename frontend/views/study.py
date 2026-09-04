@@ -37,7 +37,7 @@ with c3:
 with c4:
     render_metric_card("Peak Hours", study_summary.get("peak_hours", "Morning"), "Optimal window", is_violet=True)
 
-tab_log, tab_chart, tab_ai = st.tabs(["📝 LOG SESSION", "📊 SUBJECT BREAKDOWN", "🤖 AI EXAM SCORE PREDICTION"])
+tab_log, tab_chart, tab_ai = st.tabs(["📝 LOG SESSION", "📊 SUBJECT ANALYTICS", "🤖 EXAM PREDICTION"])
 
 with tab_log:
     col_left, col_right = st.columns([1, 1])
@@ -77,7 +77,7 @@ with tab_log:
         activities = APIClient.get("/study/activities") or []
         if activities:
             df_act = pd.DataFrame(activities)
-            st.dataframe(df_act[["activity_id", "activity_date", "subject", "study_hours", "performance_score", "task_completion_rate"]], use_container_width=True)
+            st.dataframe(df_act[["activity_date", "subject", "study_hours", "performance_score", "task_completion_rate"]], use_container_width=True)
         else:
             render_alert("No study activity logged yet.", "info")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -104,43 +104,57 @@ with tab_ai:
     st.markdown("Fill in your academic profile. The **GradientBoostingRegressor** model will predict your expected exam score.")
 
     with st.form("academic_predict_form"):
-        st.markdown("#### 📚 Academic Profile")
-        col1, col2, col3 = st.columns(3)
+        st.markdown("#### Academic Profile")
+        col1, col2 = st.columns(2)
         with col1:
             age = st.number_input("Age", min_value=13, max_value=35, value=21)
             gender = st.selectbox("Gender", ["Male", "Female"])
             major = st.selectbox("Major", ["Engineering", "Computer Science", "Arts", "Business", "Medicine", "Science", "Law", "Education"])
+        with col2:
             semester = st.slider("Current Semester", 1, 10, 4)
             previous_gpa = st.number_input("Previous GPA (0–4)", min_value=0.0, max_value=4.0, value=3.2, step=0.1)
-        with col2:
+
+        st.markdown("#### Study Behaviour")
+        col3, col4 = st.columns(2)
+        with col3:
             study_hours_per_day = st.number_input("Study Hours/Day", 0.0, 24.0, 5.0, 0.5)
             attendance_percentage = st.slider("Attendance %", 0, 100, 88)
+        with col4:
             sleep_hours = st.number_input("Sleep Hours/Night", 0.0, 24.0, 7.0, 0.5)
             exercise_frequency = st.slider("Exercise Days/Week", 0, 7, 3)
-            mental_health_rating = st.slider("Mental Health (1–10)", 1, 10, 7)
-        with col3:
+
+        st.markdown("#### Personal Factors")
+        col5, col6 = st.columns(2)
+        with col5:
             stress_level = st.slider("Stress Level (1–10)", 1, 10, 5)
             motivation_level = st.slider("Motivation (1–10)", 1, 10, 8)
             exam_anxiety_score = st.slider("Exam Anxiety (1–10)", 1, 10, 5)
+        with col6:
             time_management_score = st.slider("Time Management (1–10)", 1, 10, 7)
+            mental_health_rating = st.slider("Mental Health (1–10)", 1, 10, 7)
             parental_support_level = st.slider("Parental Support (1–10)", 1, 10, 7)
 
-        st.markdown("#### 🌐 Lifestyle & Environment")
-        col4, col5 = st.columns(2)
-        with col4:
+        st.markdown("#### Lifestyle & Environment")
+        col7, col8 = st.columns(2)
+        with col7:
             social_media_hours = st.number_input("Social Media Hours/Day", 0.0, 24.0, 2.0, 0.5)
             netflix_hours = st.number_input("Netflix Hours/Day", 0.0, 24.0, 1.5, 0.5)
-            screen_time = st.number_input("Total Screen Time/Day", 0.0, 24.0, 4.0, 0.5)
             digital_distraction_hours = st.number_input("Digital Distraction Hours/Day", 0.0, 24.0, 2.0, 0.5)
+            screen_time = st.number_input("Total Screen Time/Day (Auto)", 0.0, 24.0, 5.5, disabled=True)
+        with col8:
             social_activity = st.slider("Social Activity (0–10)", 0, 10, 5)
             wellbeing_score = st.slider("Wellbeing Score (0–10)", 0, 10, 7)
             study_efficiency = st.slider("Study Efficiency (0–10)", 0, 10, 7)
-        with col5:
+
+        st.markdown("#### Environmental Support")
+        col9, col10 = st.columns(2)
+        with col9:
             part_time_job = st.selectbox("Part-Time Job", ["No", "Yes"])
             diet_quality = st.selectbox("Diet Quality", ["Poor", "Average", "Good"])
             internet_quality = st.selectbox("Internet Quality", ["Poor", "Average", "Good", "Excellent"])
             parental_education_level = st.selectbox("Parental Education", ["High School", "Bachelor", "Master", "PhD"])
             extracurricular_participation = st.selectbox("Extracurricular", ["No", "Yes"])
+        with col10:
             dropout_risk = st.selectbox("Dropout Risk", ["Low", "Medium", "High"])
             study_environment = st.selectbox("Study Environment", ["Home", "Library", "Cafe", "Dorm"])
             access_to_tutoring = st.selectbox("Access to Tutoring", ["No", "Yes"])
@@ -183,16 +197,13 @@ with tab_ai:
                 <div style="background: linear-gradient(135deg, #1E40AF, #7C3AED); border-radius: 16px;
                      padding: 32px; text-align: center; margin: 16px 0;">
                     <div style="font-size: 14px; color: #BAE6FD; letter-spacing: 2px; margin-bottom: 8px;">
-                        PREDICTED EXAM SCORE
+                        ML PREDICTION
                     </div>
                     <div style="font-size: 64px; font-weight: 900; color: white; line-height: 1;">
                         {score:.1f}
                     </div>
                     <div style="font-size: 28px; color: #FDE68A; font-weight: 700; margin-top: 4px;">
                         Grade: {grade}
-                    </div>
-                    <div style="font-size: 12px; color: #CBD5E1; margin-top: 12px;">
-                        Model: {result.get('model_name', 'GradientBoostingRegressor')} &middot; v{result.get('model_version', '1.0')}
                     </div>
                 </div>
             """, unsafe_allow_html=True)

@@ -69,8 +69,14 @@ with tab_habits:
         st.subheader("At-Risk Habits")
         at_risk = habit_analytics.get("at_risk_habits", [])
         if at_risk:
+            st.markdown("##### ⚠️ Habits needing attention")
             for ar in at_risk:
-                render_alert(f"⚠️ <b>{ar}</b> completion rate is below 60% threshold!", "warning")
+                st.markdown(
+                    f'<div style="background-color: #FEF2F2; color: #991B1B; padding: 12px; border-radius: 8px; border-left: 4px solid #EF4444; margin-bottom: 8px; font-weight: 500;">'
+                    f'{ar} completion rate is below the 60% target.'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
         else:
             render_alert("All habits are currently on track!", "success")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -105,7 +111,11 @@ with tab_workout:
 with tab_ai:
     st.markdown('<div class="hud-card">', unsafe_allow_html=True)
     st.subheader("😴 Sleep Disorder Risk Predictor")
-    st.markdown("The **LogisticRegression** lifestyle model analyses your health profile and classifies your sleep disorder risk.")
+    st.markdown(
+        "The **GradientBoostingClassifier** lifestyle model analyses your health profile and classifies your "
+        "sleep-disorder risk into one of three categories: **Normal**, **Insomnia**, or **Sleep Apnea**. "
+        "This is a **model prediction**, not a clinical diagnosis. Consult a healthcare professional for medical advice."
+    )
 
     with st.form("lifestyle_predict_form"):
         st.markdown("#### 👤 Personal Profile")
@@ -151,27 +161,71 @@ with tab_ai:
             result = APIClient.post("/ml/lifestyle/predict", data=payload)
 
         if result and "prediction" in result:
-            disorder = result["prediction"]
-            color = "#DC2626" if disorder != "None" else "#059669"
-            icon = "⚠️" if disorder != "None" else "✅"
-            label = disorder if disorder != "None" else "No Sleep Disorder Detected"
-            advice = {
-                "Insomnia": "Consider a consistent sleep schedule, reduce screen time before bed, and limit caffeine after 2 PM.",
-                "Sleep Apnea": "Consult a physician for a sleep study. Weight management and positional therapy may help.",
-                "None": "Great! Keep maintaining your current sleep routine and lifestyle habits.",
-            }.get(disorder, "Please consult a healthcare professional for personalised advice.")
+            disorder = result["prediction"]  # One of: Normal | Insomnia | Sleep Apnea
+
+            # Determine display properties for each 3-class outcome
+            if disorder == "Normal":
+                color = "#059669"
+                icon = "✅"
+                label = "Normal — No Sleep Disorder Detected"
+            elif disorder == "Insomnia":
+                color = "#D97706"
+                icon = "⚠️"
+                label = "Insomnia"
+            elif disorder == "Sleep Apnea":
+                color = "#DC2626"
+                icon = "🚨"
+                label = "Sleep Apnea"
+            else:
+                # Graceful fallback for any unexpected value
+                color = "#6B7280"
+                icon = "ℹ️"
+                label = disorder
+
+            # Advice per classification — these are lifestyle suggestions, not medical advice
+            advice_map = {
+                "Normal": (
+                    "Great! The model classifies your profile as Normal. "
+                    "Keep maintaining your current sleep routine and lifestyle habits."
+                ),
+                "Insomnia": (
+                    "The model classifies your profile as consistent with an insomnia-related pattern. "
+                    "Consider a consistent sleep schedule, reducing screen time before bed, and limiting "
+                    "caffeine after 2 PM. If symptoms persist, consult a healthcare professional."
+                ),
+                "Sleep Apnea": (
+                    "The model classifies your profile as consistent with a sleep apnea-related pattern. "
+                    "Consider consulting a physician for a sleep study. Weight management and "
+                    "positional therapy may help. This is a model prediction, not a diagnosis."
+                ),
+            }
+            advice = advice_map.get(
+                disorder,
+                "Please consult a healthcare professional for personalised advice."
+            )
+
+            model_name = result.get("model_name", "Lifestyle Model")
+            model_version = result.get("model_version", "")
+            version_str = f" v{model_version}" if model_version else ""
 
             st.markdown(f"""
                 <div style="background: {color}15; border: 2px solid {color}40; border-radius: 16px;
                      padding: 28px; text-align: center; margin: 16px 0;">
                     <div style="font-size: 40px; margin-bottom: 8px;">{icon}</div>
-                    <div style="font-size: 14px; color: #64748B; letter-spacing: 2px; margin-bottom: 6px;">SLEEP DISORDER RISK</div>
-                    <div style="font-size: 36px; font-weight: 900; color: {color};">{label}</div>
-                    <div style="font-size: 14px; color: #475569; margin-top: 16px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-                        {advice}
+                    <div style="font-size: 14px; color: #64748B; letter-spacing: 2px; margin-bottom: 6px;">
+                        SLEEP-DISORDER CLASSIFICATION — MODEL PREDICTION
                     </div>
-                    <div style="font-size: 11px; color: #94A3B8; margin-top: 12px;">
-                        Model: {result.get('model_name', 'LogisticRegression')} &middot; v{result.get('model_version', '1.0')}
+                    <div style="font-size: 36px; font-weight: 900; color: {color};">{label}</div>
+                    <div style="font-size: 12px; color: #94A3B8; margin-top: 4px;">
+                        {model_name}{version_str} prediction &nbsp;|&nbsp; Not a clinical diagnosis
+                    </div>
+                    <div style="font-size: 14px; color: #475569; margin-top: 16px; max-width: 520px;
+                         margin-left: auto; margin-right: auto; line-height: 1.6;">
+                        <b>Main contributing factors based on your profile:</b><br>
+                        • Sleep Duration: {ls_sleep_hours} hrs/night<br>
+                        • Physical Activity Level: {ls_physical_activity_level}/100<br>
+                        • Stress Level: {ls_stress_level}/10<br><br>
+                        <i>{advice}</i>
                     </div>
                 </div>
             """, unsafe_allow_html=True)

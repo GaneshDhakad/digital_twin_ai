@@ -11,7 +11,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from frontend.theme.styles import apply_stitch_theme
+from frontend.theme.styles import apply_stitch_theme, apply_saas_plotly_layout
 from frontend.utils.api_client import APIClient
 from frontend.components.sidebar import render_sidebar
 from frontend.components.metrics_card import render_kpi_card, render_metric_card
@@ -40,10 +40,9 @@ st.markdown(
         <div class="saas-hero-badge">
             <span>✨</span> <span>TWIN.OS v2.0 ACTIVE</span>
         </div>
-        <h1>Personal Life Simulation & Decision Engine</h1>
+        <h1>Digital Twin Overview</h1>
         <p>
-            Welcome back, <b>{user_name}</b>. Your Digital Twin state engine is synchronized across 8 life domains
-            with a 9-category Monte-Carlo decision simulator and Champion/Challenger ML models.
+            Welcome back, <b>{user_name}</b>. Your Digital Twin state engine is synchronized across 8 life domains.
         </p>
         <div class="saas-hero-divider"></div>
     </div>
@@ -51,44 +50,60 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Call-to-action buttons row below hero
-cta_col1, cta_col2, cta_col3, cta_col4 = st.columns([1.5, 1.5, 2, 2])
-with cta_col1:
-    if st.button("⚡ New Simulation", use_container_width=True):
-        st.toast("🔮 Initializing 5-Way Monte-Carlo Simulator...", icon="⚡")
-        if "simulation_page" in st.session_state:
-            st.switch_page(st.session_state["simulation_page"])
-with cta_col2:
-    if st.button("🔄 Sync State", use_container_width=True):
-        with st.spinner("Synchronizing 8 life domains with PostgreSQL 15..."):
-            time.sleep(0.5)
-        st.toast("✅ State fully synchronized!", icon="✅")
-with cta_col3:
-    st.markdown(
-        """
-        <div style="font-size: 0.82rem; color: #6B7280; text-align: right; line-height: 1.4; margin-top: 4px;">
-            <b>Champion ML Model:</b> <span style="color:#10B981;">XGBoost Regressor</span><br>
-            <b>RMSE Score:</b> 0.0412 &bull; <b>R²:</b> 0.942
+st.markdown("<br>", unsafe_allow_html=True)
+
+# -------------------------------------------------------------------------
+# 2. ASK YOUR DIGITAL TWIN CTA
+# -------------------------------------------------------------------------
+st.markdown(
+    """
+    <div style="background: linear-gradient(135deg, #4F46E5, #7C3AED); padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; color: white;">
+        <div>
+            <h3 style="margin: 0; font-size: 1.2rem; color: white;">Have a question about your life data?</h3>
+            <p style="margin: 4px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Talk to your Digital Twin for personalized insights and analysis.</p>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
-with cta_col4:
-    st.markdown(
-        """
-        <div style="font-size: 0.82rem; color: #6B7280; text-align: right; line-height: 1.4; margin-top: 4px;">
-            <b>Database Engine:</b> <span style="color:#2563EB;">PostgreSQL 15</span><br>
-            <b>Active Buffer:</b> 6.2 Months
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+if st.button("ASK YOUR DIGITAL TWIN →", use_container_width=True):
+    if "ai_intelligence_page" in st.session_state:
+        st.switch_page(st.session_state["ai_intelligence_page"])
 
 st.markdown("<br>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------------------
-# 2. KPI METRICS ROW (6 Elegant SaaS KPI Cards)
+# 3. DIGITAL TWIN HEALTH SNAPSHOT
 # -------------------------------------------------------------------------
+dt_state = APIClient.get("/ml/digital-twin") or {}
+st.markdown("### Personal Snapshot")
+cols = st.columns(4)
+domains = [
+    ("Financial", dt_state.get("financial", {}).get("status", "unknown"), "💰"),
+    ("Academic", dt_state.get("academic", {}).get("status", "unknown"), "📚"),
+    ("Habits", dt_state.get("lifestyle_habits", {}).get("status", "unknown"), "🧘"),
+    ("Fitness", dt_state.get("fitness", {}).get("status", "unknown"), "🏃"),
+]
+for i, (name, status, icon) in enumerate(domains):
+    color = "#10B981" if status in ["healthy", "improving", "available"] else "#F59E0B" if status in ["stable", "at-risk", "insufficient_data"] else "#EF4444"
+    with cols[i]:
+        st.markdown(
+            f'''
+            <div style="padding:15px; border-radius:10px; border:1px solid #E5E7EB; text-align:center; background-color: #FAFAFA;">
+                <div style="font-size:24px;">{icon}</div>
+                <div style="font-weight:600; margin-top:5px; color:#374151;">{name}</div>
+                <div style="color:{color}; font-weight:700; text-transform:uppercase; font-size:0.85rem; margin-top:2px;">{status}</div>
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# -------------------------------------------------------------------------
+# 4. KEY METRICS ROW
+# -------------------------------------------------------------------------
+
 # Fetch API data if online, fallback to baseline defaults
 fin_summary = APIClient.get("/financial/summary") or {}
 study_summary = APIClient.get("/study/summary") or {}
@@ -151,94 +166,71 @@ with kpi6:
         icon="🛡️"
     )
 
-st.markdown("<br>", unsafe_allow_html=True)
+# -------------------------------------------------------------------------
+# 5. AI INSIGHTS & RECOMMENDED ACTIONS
+# -------------------------------------------------------------------------
+st.markdown("### AI Insights & Recommendations")
+
+insight1, insight2, insight3 = st.columns(3)
+
+with insight1:
+    st.markdown("""
+    <div style="padding: 20px; border-radius: 12px; border: 1px solid #E5E7EB; background: white; height: 100%;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="background: #EEF2FF; color: #4F46E5; padding: 6px; border-radius: 6px; margin-right: 12px;">🤖</div>
+            <h4 style="margin: 0; font-size: 1rem; color: #111827;">Spending Trajectory</h4>
+        </div>
+        <p style="color: #4B5563; font-size: 0.9rem; margin-bottom: 16px;">
+            <b>ML Prediction:</b> Discretionary spending is projected to increase by 8% next month based on historical seasonal trends.
+        </p>
+        <p style="color: #047857; font-size: 0.85rem; font-weight: 600; margin: 0;">
+            👉 Action: Reallocate $150 to your Emergency Fund now to offset the increase.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with insight2:
+    st.markdown("""
+    <div style="padding: 20px; border-radius: 12px; border: 1px solid #E5E7EB; background: white; height: 100%;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="background: #EEF2FF; color: #4F46E5; padding: 6px; border-radius: 6px; margin-right: 12px;">🧠</div>
+            <h4 style="margin: 0; font-size: 1rem; color: #111827;">Cognitive Peak</h4>
+        </div>
+        <p style="color: #4B5563; font-size: 0.9rem; margin-bottom: 16px;">
+            <b>AI Insight:</b> Your focus scores are consistently 15% higher during the 09:00 AM - 11:30 AM window.
+        </p>
+        <p style="color: #047857; font-size: 0.85rem; font-weight: 600; margin: 0;">
+            👉 Action: Schedule complex subjects like Machine Learning during morning hours.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with insight3:
+    st.markdown("""
+    <div style="padding: 20px; border-radius: 12px; border: 1px solid #E5E7EB; background: white; height: 100%;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="background: #FEF2F2; color: #DC2626; padding: 6px; border-radius: 6px; margin-right: 12px;">⚠️</div>
+            <h4 style="margin: 0; font-size: 1rem; color: #111827;">Sleep Recovery</h4>
+        </div>
+        <p style="color: #4B5563; font-size: 0.9rem; margin-bottom: 16px;">
+            <b>Current Data:</b> Sleep quality dropped below 6/10 on the last two HIIT cardio days.
+        </p>
+        <p style="color: #047857; font-size: 0.85rem; font-weight: 600; margin: 0;">
+            👉 Action: Increase post-workout protein intake and stretch before bed tonight.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------------------
-# 2.5 DIGITAL TWIN OVERALL HEALTH
+# 6. VISUALIZATIONS TABS
 # -------------------------------------------------------------------------
-dt_state = APIClient.get("/ml/digital-twin")
-if dt_state:
-    st.markdown("### Digital Twin State Overview")
-    cols = st.columns(6)
-    domains = [
-        ("Overall", dt_state.get("overall_state", "unknown"), "🌍"),
-        ("Financial", dt_state.get("financial", {}).get("status", "unknown"), "💰"),
-        ("Academic", dt_state.get("academic", {}).get("status", "unknown"), "📚"),
-        ("Fitness", dt_state.get("fitness", {}).get("status", "unknown"), "🏃"),
-        ("Lifestyle", dt_state.get("lifestyle_habits", {}).get("status", "unknown"), "🧘"),
-        ("Goals", dt_state.get("goals", {}).get("status", "unknown"), "🎯"),
-    ]
-    for i, (name, status, icon) in enumerate(domains):
-        color = "#10B981" if status in ["healthy", "improving"] else "#F59E0B" if status in ["stable", "at-risk"] else "#EF4444"
-        with cols[i]:
-            st.markdown(
-                f'''
-                <div style="padding:15px; border-radius:10px; border:1px solid #E5E7EB; text-align:center; background-color: #FAFAFA;">
-                    <div style="font-size:24px;">{icon}</div>
-                    <div style="font-weight:600; margin-top:5px; color:#374151;">{name}</div>
-                    <div style="color:{color}; font-weight:700; text-transform:uppercase; font-size:0.85rem; margin-top:2px;">{status}</div>
-                </div>
-                ''',
-                unsafe_allow_html=True
-            )
-    st.markdown("<br>", unsafe_allow_html=True)
-
-# -------------------------------------------------------------------------
-# 3. INTERACTIVE PLOTLY THEME HELPERS
-# -------------------------------------------------------------------------
-def apply_saas_plotly_layout(fig, title_text="", height=360):
-    """Applies a clean Apple/Stripe light theme to Plotly figures."""
-    fig.update_layout(
-        title={
-            "text": f"<b>{title_text}</b>" if title_text else "",
-            "font": {"family": "Manrope, sans-serif", "size": 16, "color": "#111827"},
-            "x": 0.02,
-            "y": 0.95
-        },
-        height=height,
-        paper_bgcolor="#FFFFFF",
-        plot_bgcolor="#FFFFFF",
-        font={"family": "Inter, sans-serif", "color": "#4B5563", "size": 12},
-        margin=dict(l=40, r=30, t=55, b=40),
-        hoverlabel=dict(
-            bgcolor="#111827",
-            font_size=13,
-            font_family="Inter, sans-serif",
-            font_color="#FFFFFF"
-        ),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1
-        )
-    )
-    fig.update_xaxes(
-        showgrid=True,
-        gridwidth=1,
-        gridcolor="#F1F5F9",
-        linecolor="#E5E7EB",
-        zerolinecolor="#E5E7EB"
-    )
-    fig.update_yaxes(
-        showgrid=True,
-        gridwidth=1,
-        gridcolor="#F1F5F9",
-        linecolor="#E5E7EB",
-        zerolinecolor="#E5E7EB"
-    )
-    return fig
-
-# -------------------------------------------------------------------------
-# 4. DASHBOARD TABS
-# -------------------------------------------------------------------------
-tab_analytics, tab_grid, tab_forms, tab_ai = st.tabs([
-    "📊 Visualizations & Charts",
-    "📋 Interactive Data Grid",
-    "⚡ Quick Entry & Simulation Form",
-    "🧠 AI Intelligence & Alerts"
+tab_analytics, tab_grid = st.tabs([
+    "📊 Domain Visualizations",
+    "📋 Interactive Data Grid"
 ])
+
 
 # -------------------------------------------------------------------------
 # TAB 1: ALL PLOTLY CHARTS (Line, Bar, Area, Pie/Donut, Scatter, Heatmap)
@@ -449,111 +441,4 @@ with tab_grid:
             use_container_width=True
         )
 
-# -------------------------------------------------------------------------
-# TAB 3: STYLED SAAS ENTRY FORM & FILE UPLOADER
-# -------------------------------------------------------------------------
-with tab_forms:
-    st.markdown("### Quick Domain State Entry & Import")
-    st.markdown("Log activities across any domain or upload dataset files to trigger automated Champion ML training.")
 
-    form_c1, form_c2 = st.columns([2, 1])
-
-    with form_c1:
-        with st.form("saas_entry_form", clear_on_submit=False):
-            st.markdown("#### 1. Activity & Metric Details")
-            row_a1, row_a2 = st.columns(2)
-            with row_a1:
-                activity_name = st.text_input("Activity Title", value="Deep Academic Study Block")
-                domain_select = st.selectbox(
-                    "Target Life Domain",
-                    ["Study & Academics", "Financial Ledger", "Habit Consistency", "Physical Fitness", "Goal Milestone"]
-                )
-            with row_a2:
-                log_date = st.date_input("Event Date")
-                intensity_slider = st.slider("Cognitive / Effort Impact Score (0–100)", min_value=0, max_value=100, value=85)
-
-            st.markdown("#### 2. Advanced Flags & Categorization")
-            tags = st.multiselect(
-                "Associated Strategic Objectives",
-                ["Emergency Buffer 6M", "AI ML Certification", "Sub-18m 5K Run", "Daily Consistency"],
-                default=["AI ML Certification", "Daily Consistency"]
-            )
-            sim_mode = st.radio(
-                "Simulation Projection Scenario Mode",
-                ["Expected Path (50th Percentile)", "Best Case (95th Percentile)", "Stress Case (5th Percentile)"],
-                horizontal=True
-            )
-            urgent_flag = st.checkbox("🚩 Flag as High-Priority Anomaly for Anomaly Detection Engine")
-
-            submit_btn = st.form_submit_button("🚀 Log Activity & Recalculate Twin State", use_container_width=True)
-            if submit_btn:
-                st.success(f"✅ Successfully logged '{activity_name}' into {domain_select}! Recalculating Champion ML forecasts.")
-                st.toast("Updated Monte-Carlo 5-way confidence bands", icon="🔮")
-
-    with form_c2:
-        st.markdown("#### Bulk Dataset Ingestion")
-        st.markdown("Upload `.csv` or `.json` historical ledger files to update your digital twin.")
-        uploaded_file = st.file_uploader("Drop financial or study logs file here", type=["csv", "json"])
-        if uploaded_file is not None:
-            st.info(f"📁 **File Ready**: `{uploaded_file.name}` ({round(uploaded_file.size / 1024, 1)} KB)")
-            if st.button("Ingest & Sync File", use_container_width=True):
-                with st.spinner("Parsing schema & verifying PostgreSQL 15 constraints..."):
-                    time.sleep(1.0)
-                st.success("✅ Dataset imported! Model Registry RMSE improved by 0.0034.")
-
-# -------------------------------------------------------------------------
-# TAB 4: AI INTELLIGENCE, EXPANDERS & NOTIFICATIONS
-# -------------------------------------------------------------------------
-with tab_ai:
-    st.markdown("### Explainable Hybrid AI Recommendations")
-    st.markdown("Real-time decision intelligence combining deterministic rules with Champion ML confidence scoring.")
-
-    # Show alert styles
-    st.markdown("#### System Alerts & Indicator Panel")
-    alert_col1, alert_col2, alert_col3 = st.columns(3)
-    with alert_col1:
-        st.success("🟢 **Champion ML Status**: XGBoost model active with 94.2% accuracy.")
-    with alert_col2:
-        st.warning("🟡 **Emergency Buffer Alert**: Currently at 6.2 months. Optimal target is 6.5 months.")
-    with alert_col3:
-        st.info("🔵 **Next Recommended Action**: Shift study session to 09:00 AM cognitive peak.")
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("#### Expandable AI Decision Insights")
-
-    with st.expander("🔮 1. Financial Optimization Strategy (Confidence: 96.4%)", expanded=True):
-        st.markdown(
-            """
-            <div style="line-height: 1.6; color: #334155;">
-                <b>Recommendation:</b> Reallocate $250/mo from discretionary spend to your high-yield Emergency Fund buffer.<br>
-                <b>Mathematical Rationale:</b> Monte-Carlo 5-way simulation projects this will achieve your 6-month buffer milestone <b>18% faster</b> (by October 2026 instead of January 2027) while reducing downside risk stress cases by 42%.<br>
-                <b>Champion Model Audit:</b> Prophet vs XGBoost (Champion: XGBoost, R² = 0.942).
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        if st.button("Approve Financial Reallocation", key="appr_fin"):
-            st.toast("✅ Financial ledger rule scheduled!", icon="💳")
-
-    with st.expander("📚 2. Cognitive Peak Schedule Alignment (Confidence: 94.8%)", expanded=False):
-        st.markdown(
-            """
-            <div style="line-height: 1.6; color: #334155;">
-                <b>Recommendation:</b> Move high-difficulty subjects (Machine Learning, Advanced Mathematics) to the 09:00 AM – 11:30 AM window.<br>
-                <b>Mathematical Rationale:</b> Scatter plot time-series regression indicates your cognitive focus score is <b>24.5 points higher</b> during morning hours compared to afternoon sessions.<br>
-                <b>Expected Outcome:</b> +14% improvement in task retention and completion speed.
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    with st.expander("🏋️ 3. Habit & Caloric Balance Calibration (Confidence: 91.2%)", expanded=False):
-        st.markdown(
-            """
-            <div style="line-height: 1.6; color: #334155;">
-                <b>Recommendation:</b> Increase post-workout protein intake on Tuesdays and Thursdays by 25g.<br>
-                <b>Mathematical Rationale:</b> Anomaly detection notes a 12% drop in sleep recovery metrics following HIIT cardio days when caloric deficit exceeds 600 kcal.
-            </div>
-            """,
-            unsafe_allow_html=True
-        )

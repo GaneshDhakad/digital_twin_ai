@@ -16,10 +16,10 @@ class APIClient:
         return headers
 
     @classmethod
-    def get(cls, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+    def get(cls, endpoint: str, params: Optional[Dict[str, Any]] = None, timeout: int = 10) -> Optional[Any]:
         url = f"{API_BASE_URL}{endpoint}"
         try:
-            res = requests.get(url, headers=cls.get_headers(), params=params, timeout=10)
+            res = requests.get(url, headers=cls.get_headers(), params=params, timeout=timeout)
             if res.status_code == 401:
                 st.session_state["authenticated"] = False
                 st.session_state["token"] = None
@@ -31,10 +31,10 @@ class APIClient:
             return None
 
     @classmethod
-    def post(cls, endpoint: str, data: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+    def post(cls, endpoint: str, data: Optional[Dict[str, Any]] = None, timeout: int = 10) -> Optional[Any]:
         url = f"{API_BASE_URL}{endpoint}"
         try:
-            res = requests.post(url, headers=cls.get_headers(), json=data, timeout=10)
+            res = requests.post(url, headers=cls.get_headers(), json=data, timeout=timeout)
             if res.status_code == 401:
                 st.session_state["authenticated"] = False
                 st.session_state["token"] = None
@@ -52,10 +52,10 @@ class APIClient:
             return {"error": str(e)}
 
     @classmethod
-    def put(cls, endpoint: str, data: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+    def put(cls, endpoint: str, data: Optional[Dict[str, Any]] = None, timeout: int = 10) -> Optional[Any]:
         url = f"{API_BASE_URL}{endpoint}"
         try:
-            res = requests.put(url, headers=cls.get_headers(), json=data, timeout=10)
+            res = requests.put(url, headers=cls.get_headers(), json=data, timeout=timeout)
             if res.status_code == 401:
                 st.session_state["authenticated"] = False
                 st.session_state["token"] = None
@@ -73,10 +73,10 @@ class APIClient:
             return {"error": str(e)}
 
     @classmethod
-    def delete(cls, endpoint: str) -> Optional[Any]:
+    def delete(cls, endpoint: str, timeout: int = 10) -> Optional[Any]:
         url = f"{API_BASE_URL}{endpoint}"
         try:
-            res = requests.delete(url, headers=cls.get_headers(), timeout=10)
+            res = requests.delete(url, headers=cls.get_headers(), timeout=timeout)
             if res.status_code == 401:
                 st.session_state["authenticated"] = False
                 st.session_state["token"] = None

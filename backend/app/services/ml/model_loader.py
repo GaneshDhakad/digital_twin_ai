@@ -3,7 +3,13 @@ model_loader.py
 Shared model loader for all ML models.
 
 Resolves model artifacts from ML_MODELS_DIR (env var) with automatic
-fallback to ml_models/trained/<domain>/ if not found at the primary path.
+fallback to backend/app/ml_models/<domain>/ and ml_models/trained/<domain>/
+if not found at the primary path.
+
+Search priority:
+  1. backend/app/ml_models/<domain>/      ← contains the CURRENT, deployed models
+  2. ML_MODELS_DIR (from env) or ml_models/<domain>/
+  3. ML_MODELS_DIR/trained/<domain>/      ← may contain older model artifacts
 
 Models are cached in-memory after first load to avoid repeated disk I/O.
 """
@@ -32,11 +38,14 @@ if _ML_MODELS_DIR_ENV:
 else:
     ML_MODELS_DIR = _PROJECT_ROOT / "ml_models"
 
-# Fallback locations searched in order
+# Fallback locations searched in order.
+# IMPORTANT: backend/app/ml_models is listed FIRST so that the current
+# deployed model artifacts (e.g., the 3-class Lifestyle GradientBoostingClassifier)
+# are found before any older artifacts in ml_models/trained/.
 _SEARCH_PATHS: list[Path] = [
-    ML_MODELS_DIR,                          # ml_models/<domain>/
-    ML_MODELS_DIR / "trained",              # ml_models/trained/<domain>/
-    _PROJECT_ROOT / "backend" / "app" / "ml_models",  # backend/app/ml_models/<domain>/
+    _PROJECT_ROOT / "backend" / "app" / "ml_models",  # deployed models (highest priority)
+    ML_MODELS_DIR,                                      # ml_models/<domain>/
+    ML_MODELS_DIR / "trained",                          # ml_models/trained/<domain>/
 ]
 
 SUPPORTED_DOMAINS = {"academic", "lifestyle", "financial", "forecasting"}

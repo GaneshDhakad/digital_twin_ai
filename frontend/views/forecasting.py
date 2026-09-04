@@ -50,10 +50,10 @@ render_sidebar()
 # PAGE HEADER
 # ============================================================================
 
-st.title("Digital Twin AI — Prediction Dashboard")
+st.title("AI Forecasting")
 
 st.markdown(
-    "Your current AI prediction state across all integrated models."
+    "What is likely to happen? Your cross-domain predictions and likely future states based on historical data."
 )
 
 st.markdown("---")
@@ -187,10 +187,10 @@ with st.expander("🔧 Model Status", expanded=False):
 
 st.markdown("---")
 
-st.subheader("🧠 Current Digital Twin State")
+st.subheader("🔮 Cross-Domain Forecasting")
 
 st.markdown(
-    "Latest cached predictions for your profile."
+    "Likely future outcomes across your life domains."
 )
 
 
@@ -199,8 +199,7 @@ st.markdown(
 # ============================================================================
 
 twin_state = APIClient.get("/ml/digital-twin")
-st.write("DEBUG DIGITAL TWIN RESPONSE")
-st.json(twin_state)
+
 
 if not twin_state:
     twin_state = {}
@@ -263,7 +262,7 @@ with col1:
 
             st.metric(
                 "Predicted Exam Score",
-                f"{display_score:.1f}",
+                f"{display_score:.1f}%",
                 delta=f"Grade: {grade}"
             )
 
@@ -323,7 +322,7 @@ with col1:
         if income is not None:
 
             st.metric(
-                "Predicted Disposable Income",
+                "Expected Disposable Income",
                 f"${income:,.0f}"
             )
 
@@ -393,7 +392,7 @@ with col2:
             }
 
             icon = "✅" if disorder.strip().lower() in no_disorder_values else "⚠️"
-            st.metric("Sleep Disorder Risk", f"{icon} {disorder}")
+            st.metric("Projected Sleep Disorder Risk", f"{icon} {disorder}")
 
         if life.get("status") == "available":
             st.caption(
@@ -437,7 +436,7 @@ with col2:
         if spending is not None:
 
             st.metric(
-                "Next Month Spending",
+                "Projected Next Month Spending",
                 f"${spending:,.0f}"
             )
 
@@ -471,45 +470,6 @@ with col2:
     )
 
 
-# ============================================================================
-# FITNESS
-# ============================================================================
-
-fit = ml_preds.get("fitness")
-
-st.markdown(
-    '<div class="hud-card">',
-    unsafe_allow_html=True
-)
-
-st.markdown("#### 🏃 Fitness")
-
-if fit and isinstance(fit, dict):
-    status = fit.get("status")
-    if status == "model_unavailable":
-        render_alert("Fitness prediction unavailable: No trained fitness model exists", "warning")
-    elif status == "insufficient_data":
-        render_alert("Insufficient data to generate prediction.", "info")
-    else:
-        raw_fitness = fit.get("prediction", "—")
-        st.metric("Fitness Prediction", str(raw_fitness))
-
-        if fit.get("status") == "available":
-            st.caption(
-                f"Model: {fit.get('model_name', '—')} · "
-                f"{get_timestamp(fit)}"
-            )
-else:
-    render_alert(
-        "No fitness prediction yet. "
-        "Use the Fitness page AI tab.",
-        "info"
-    )
-
-st.markdown(
-    "</div>",
-    unsafe_allow_html=True
-)
 
 
 # ============================================================================

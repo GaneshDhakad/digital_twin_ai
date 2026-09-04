@@ -106,6 +106,37 @@ def apply_stitch_theme():
             transition: var(--transition) !important;
         }
 
+        /* Ensure entered/selected values inside inputs are always visible */
+        .stTextInput input, .stNumberInput input {
+            color: var(--text-primary) !important;
+        }
+
+        /* Selectbox: ensure selected option text is visible */
+        .stSelectbox div[data-baseweb="select"] span,
+        .stSelectbox div[data-baseweb="select"] div,
+        .stSelectbox [data-baseweb="select"] [data-value],
+        div[data-baseweb="popover"] li,
+        div[data-baseweb="popover"] span {
+            color: var(--text-primary) !important;
+        }
+
+        /* Number input: ensure the value text is visible */
+        .stNumberInput div[data-baseweb="input"] input {
+            color: var(--text-primary) !important;
+            background: var(--bg-card) !important;
+        }
+
+        /* Text input value text */
+        .stTextInput div[data-baseweb="input"] input {
+            color: var(--text-primary) !important;
+        }
+
+        /* Slider value label */
+        div[data-testid="stSlider"] span {
+            color: var(--text-primary) !important;
+        }
+
+
         .stTextInput input:focus, .stNumberInput input:focus, .stTextArea textarea:focus,
         .stSelectbox div[data-baseweb="select"] > div:focus-within,
         .stMultiSelect div[data-baseweb="select"] > div:focus-within {
@@ -375,3 +406,48 @@ def apply_stitch_theme():
         """,
         unsafe_allow_html=True
     )
+
+def apply_saas_plotly_layout(fig, title_text="", height=360):
+    """Applies a clean Apple/Stripe light theme to Plotly figures."""
+    fig.update_layout(
+        title={
+            "text": f"<b>{title_text}</b>" if title_text else "",
+            "font": {"family": "Manrope, sans-serif", "size": 16, "color": "#111827"},
+            "x": 0.02,
+            "y": 0.95
+        },
+        height=height,
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
+        font={"family": "Inter, sans-serif", "color": "#4B5563", "size": 12},
+        margin=dict(l=40, r=30, t=55, b=40),
+        hoverlabel=dict(
+            bgcolor="#111827",
+            font_size=13,
+            font_family="Inter, sans-serif",
+            font_color="#FFFFFF"
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+    fig.update_xaxes(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor="#F1F5F9",
+        linecolor="#E5E7EB",
+        zerolinecolor="#E5E7EB"
+    )
+    fig.update_yaxes(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor="#F1F5F9",
+        linecolor="#E5E7EB",
+        zerolinecolor="#E5E7EB"
+    )
+    return fig
+

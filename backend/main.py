@@ -19,6 +19,7 @@ from app.api.routes.analytics import router as analytics_router
 from app.api.routes.simulation import router as simulation_router
 from app.api.routes.recommendations import router as recommendations_router
 from app.api.routes.ml import router as ml_router
+from app.api.routes.ai import router as ai_router
 from app.services.analytics_service import log_activity
 
 # Automatically initialize database schema tables
@@ -94,6 +95,7 @@ app.include_router(analytics_router, prefix=api_prefix)
 app.include_router(simulation_router, prefix=api_prefix)
 app.include_router(recommendations_router, prefix=api_prefix)
 app.include_router(ml_router, prefix=api_prefix)
+app.include_router(ai_router, prefix=api_prefix)
 
 
 ROOT_DIR = Path(__file__).resolve().parent.parent

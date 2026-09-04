@@ -84,7 +84,14 @@ def get_digital_twin_state(db: Session, user_id: UUID) -> DigitalTwinState:
         
         fin_state = DomainState(
             status=fin_status,
-            metrics={"total_income": total_inc, "total_expenses": total_exp, "total_savings": fin.total_savings},
+            metrics={
+                "total_income": fin.total_income,
+                "total_expenses": fin.total_expenses,
+                "net_savings": fin.net_savings,
+                "savings_rate": fin.savings_rate,
+                "category_breakdown": fin.category_breakdown,
+                "monthly_trend": fin.monthly_trend
+            },
             last_updated=now
         )
     except Exception:
@@ -94,12 +101,18 @@ def get_digital_twin_state(db: Session, user_id: UUID) -> DigitalTwinState:
     try:
         std = get_study_summary(db, user_id)
         std_status = "stable"
-        if std.average_performance_score >= 85: std_status = "healthy"
-        elif std.average_performance_score < 60 and std.total_focus_hours > 0: std_status = "at-risk"
+        if std.task_completion_rate >= 85: std_status = "healthy"
+        elif std.task_completion_rate < 60 and std.total_hours > 0: std_status = "at-risk"
         
         acad_state = DomainState(
             status=std_status,
-            metrics={"total_focus_hours": std.total_focus_hours, "average_performance": std.average_performance_score},
+            metrics={
+                "total_focus_hours": std.total_hours,
+                "task_completion_rate": std.task_completion_rate,
+                "avg_focus_score": std.avg_focus_score,
+                "peak_hours": std.peak_hours,
+                "subject_breakdown": std.subject_breakdown
+            },
             last_updated=now
         )
     except Exception:
@@ -109,12 +122,17 @@ def get_digital_twin_state(db: Session, user_id: UUID) -> DigitalTwinState:
     try:
         fit = get_fitness_summary(db, user_id)
         fit_status = "stable"
-        if fit.total_workouts >= 3: fit_status = "healthy"
-        elif fit.total_workouts == 0: fit_status = "declining"
+        if fit.weekly_activity_count >= 3: fit_status = "healthy"
+        elif fit.weekly_activity_count == 0: fit_status = "declining"
         
         fit_state = DomainState(
             status=fit_status,
-            metrics={"total_workouts": fit.total_workouts, "total_duration": fit.total_duration_minutes, "calories": fit.total_calories},
+            metrics={
+                "total_workouts": fit.weekly_activity_count,
+                "total_duration": fit.total_duration_minutes,
+                "calories": fit.total_calories,
+                "activity_breakdown": fit.activity_breakdown
+            },
             last_updated=now
         )
     except Exception:
@@ -129,7 +147,12 @@ def get_digital_twin_state(db: Session, user_id: UUID) -> DigitalTwinState:
         
         life_state = DomainState(
             status=hab_status,
-            metrics={"completion_rate": hab.overall_completion_rate, "current_streak": hab.current_streak},
+            metrics={
+                "total_habits_logged": hab.total_habits_logged,
+                "completion_rate": hab.overall_completion_rate,
+                "current_streak": hab.current_streak,
+                "at_risk_habits": hab.at_risk_habits
+            },
             last_updated=now
         )
     except Exception:
@@ -139,12 +162,12 @@ def get_digital_twin_state(db: Session, user_id: UUID) -> DigitalTwinState:
     try:
         gls = get_goal_summary(db, user_id)
         gls_status = "stable"
-        if gls.completed_goals > 0: gls_status = "improving"
-        if gls.at_risk_goals > 0: gls_status = "at-risk"
+        if gls.completed_count > 0: gls_status = "improving"
+        if gls.at_risk_count > 0: gls_status = "at-risk"
         
         goal_state = DomainState(
             status=gls_status,
-            metrics={"active_goals": gls.active_goals, "completed_goals": gls.completed_goals, "at_risk": gls.at_risk_goals},
+            metrics={"total_goals": gls.total_goals, "completed_goals": gls.completed_count, "at_risk": gls.at_risk_count},
             last_updated=now
         )
     except Exception:

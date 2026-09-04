@@ -116,9 +116,9 @@ def lifestyle_predict(
     db: Session = Depends(get_db),
 ) -> LifestylePredictionResponse:
     """
-    Classify sleep disorder risk using the LogisticRegression lifestyle model.
+    Classify sleep disorder risk using the GradientBoostingClassifier lifestyle model.
 
-    Possible predictions: 'None', 'Insomnia', 'Sleep Apnea' (from training data).
+    Possible predictions: 'Normal', 'Insomnia', 'Sleep Apnea' (project classification labels, not clinical diagnoses).
     """
     try:
         return predict_sleep_disorder(request, current_user.user_id, db)

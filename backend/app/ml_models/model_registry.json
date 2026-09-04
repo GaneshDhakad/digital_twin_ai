@@ -9,13 +9,18 @@
         "primary_metric_value": 0.2448239232222163
     },
     "lifestyle": {
-        "model_path": "backend/app/ml_models\\lifestyle\\model.joblib",
-        "model_name": "LogisticRegression",
+        "model_path": "C:\\Users\\gkdha\\OneDrive\\Desktop\\INFO_PROJECT\\digital_twin_ai\\backend\\app\\ml_models\\lifestyle\\model.joblib",
+        "model_name": "GradientBoostingClassifier",
         "target": "sleep_disorder",
         "problem_type": "classification",
-        "version": "1.0",
-        "primary_metric": "F1",
-        "primary_metric_value": 0.9111111111111111
+        "version": "2.0",
+        "primary_metric": "macro_f1",
+        "primary_metric_value": 0.9772727272727272,
+        "classes": [
+            "Normal",
+            "Insomnia",
+            "Sleep Apnea"
+        ]
     },
     "financial": {
         "model_path": "backend/app/ml_models\\financial\\model.joblib",

@@ -1,25 +1,18 @@
 {
-    "target": "sleep_disorder",
-    "problem_type": "classification",
-    "classes": [
-        "Normal",
-        "Insomnia",
-        "Sleep Apnea"
-    ],
     "final_features": [
+        "gender",
         "age",
+        "occupation",
         "sleep_hours",
         "sleep_quality",
         "physical_activity_level",
         "stress_level",
+        "bmi_category",
+        "blood_pressure",
         "heart_rate",
         "daily_steps",
         "activity_sleep_balance",
-        "lifestyle_risk_score",
-        "gender",
-        "occupation",
-        "bmi_category",
-        "blood_pressure"
+        "lifestyle_risk_score"
     ],
     "numerical_features": [
         "age",
@@ -38,9 +31,13 @@
         "bmi_category",
         "blood_pressure"
     ],
-    "removed_features": [],
-    "split_strategy": "Stratified 80/20 hold-out test",
-    "cross_validation": "5-fold StratifiedKFold",
-    "primary_metric": "macro_f1",
-    "model_selection": "Best 5-fold CV macro F1 among candidate classifiers"
+    "removed_features": [
+        "id",
+        "client_id"
+    ],
+    "removal_reasons": {
+        "id": "Identifier",
+        "client_id": "Identifier"
+    },
+    "preprocessing": "SimpleImputer + StandardScaler for num, SimpleImputer + OneHotEncoder for cat"
 }

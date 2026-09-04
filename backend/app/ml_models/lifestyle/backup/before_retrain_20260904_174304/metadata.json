@@ -1,0 +1,30 @@
+{
+    "model_name": "LogisticRegression",
+    "problem_type": "classification",
+    "target": "sleep_disorder",
+    "dataset": "lifestyle_clean.csv",
+    "version": "1.0",
+    "training_date": "2026-08-14T16:17:19.519238",
+    "rows": 117,
+    "final_features": [
+        "gender",
+        "age",
+        "occupation",
+        "sleep_hours",
+        "sleep_quality",
+        "physical_activity_level",
+        "stress_level",
+        "bmi_category",
+        "blood_pressure",
+        "heart_rate",
+        "daily_steps",
+        "activity_sleep_balance",
+        "lifestyle_risk_score"
+    ],
+    "metrics": {
+        "cv_primary": 0.8217667234726058,
+        "validation_primary": 0.8920454545454546,
+        "test_primary": 0.9111111111111111,
+        "test_secondary": 0.9166666666666666
+    }
+}
