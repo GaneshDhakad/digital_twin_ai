@@ -49,7 +49,6 @@ venv.bak/
 # ==========================================
 # Large / binary trained models
 *.pkl
-*.joblib
 *.h5
 *.pt
 *.pth
