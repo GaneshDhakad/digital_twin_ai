@@ -5,21 +5,25 @@ def render_sidebar():
     Renders a premium Apple + Stripe + Notion inspired SaaS Navigation Sidebar.
     Contains Application logo, Navigation menu indicator, Icons, User profile card,
     Theme information, Settings section, and an interactive Help drawer.
+    Supports both Light and Dark themes dynamically.
     """
+    theme_mode = st.session_state.get("theme_mode", "light")
+    is_dark = (theme_mode == "dark")
+
     with st.sidebar:
         # 1. Application Logo & Version Badge
         st.markdown(
             """
-            <div style="padding: 16px 8px 20px 8px; border-bottom: 1px solid #E5E7EB; text-align: left;">
+            <div style="padding: 16px 8px 20px 8px; border-bottom: 1px solid var(--border); text-align: left;">
                 <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <h2 style="font-family: 'Manrope', sans-serif; font-size: 1.45rem; font-weight: 800; color: #111827; margin: 0;">
-                        TWIN<span style="color: #2563EB;">.OS</span>
+                    <h2 style="font-family: 'Manrope', sans-serif; font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin: 0;">
+                        TWIN<span style="color: var(--primary);">.OS</span>
                     </h2>
-                    <span style="background: rgba(37, 99, 235, 0.1); color: #2563EB; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 9999px;">
+                    <span style="background: rgba(37, 99, 235, 0.15); color: var(--primary); font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 9999px;">
                         SaaS v2.0
                     </span>
                 </div>
-                <div style="font-size: 0.75rem; color: #6B7280; font-weight: 600; margin-top: 4px;">
+                <div style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; margin-top: 4px;">
                     Digital Twin Decision Engine
                 </div>
             </div>
@@ -41,10 +45,10 @@ def render_sidebar():
                     {initials}
                 </div>
                 <div style="overflow: hidden;">
-                    <div style="font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.9rem; color: #111827; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <div style="font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {name}
                     </div>
-                    <div style="font-size: 0.75rem; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {email}
                     </div>
                     <div style="margin-top: 4px; font-size: 0.72rem; color: #10B981; font-weight: 700; display: flex; align-items: center;">
@@ -60,24 +64,24 @@ def render_sidebar():
         st.markdown(
             """
             <div style="margin: 20px 0 10px 0;">
-                <div style="font-size: 0.72rem; font-weight: 700; color: #6B7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">
                     WORKSPACE NAVIGATION
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #111827; font-weight: 600;">
-                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; background: rgba(37,99,235,0.06); color: #2563EB;">
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: var(--text-primary); font-weight: 600;">
+                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; background: rgba(37,99,235,0.08); color: var(--primary);">
                         <span>📊</span> <span>Executive Dashboard</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: #6B7280;">
+                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: var(--text-secondary);">
                         <span>💳</span> <span>Financial Ledger & Net Worth</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: #6B7280;">
+                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: var(--text-secondary);">
                         <span>📚</span> <span>Study & Academic Focus</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: #6B7280;">
+                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: var(--text-secondary);">
                         <span>🏋️</span> <span>Habits & Physical Fitness</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: #6B7280;">
-                        <span>🔮</span> <span>Monte-Carlo Decision Engine</span>
+                    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; color: var(--text-secondary);">
+                        <span>🔮</span> <span>Decision Simulator</span>
                     </div>
                 </div>
             </div>
@@ -87,21 +91,28 @@ def render_sidebar():
 
         st.markdown("---")
 
-        # 4. Theme Information Badge
+        # 4. Theme Information & Switcher
+        theme_label = "Dark Obsidian" if is_dark else "Apple/Stripe Light"
         st.markdown(
-            """
-            <div style="background: #F8FAFC; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px; margin: 12px 0;">
-                <div style="font-size: 0.75rem; font-weight: 700; color: #111827; display: flex; align-items: center; justify-content: space-between;">
-                    <span>🎨 Theme Information</span>
-                    <span style="color: #2563EB;">Apple/Stripe Light</span>
+            f"""
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin: 12px 0;">
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+                    <span>🎨 Active Theme</span>
+                    <span style="color: var(--primary);">{theme_label}</span>
                 </div>
-                <div style="font-size: 0.72rem; color: #6B7280; margin-top: 4px;">
-                    16px border-radius &bull; #F8FAFC canvas &bull; Soft elevation shadows
+                <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">
+                    {"High contrast obsidian dark mode" if is_dark else "16px border-radius light mode"}
                 </div>
             </div>
             """,
             unsafe_allow_html=True
         )
+
+        # Quick Theme switch button in sidebar
+        toggle_txt = "☀️ Switch to Light Theme" if is_dark else "🌙 Switch to Dark Theme"
+        if st.button(toggle_txt, key="sidebar_theme_toggle_btn", use_container_width=True):
+            st.session_state["theme_mode"] = "light" if is_dark else "dark"
+            st.rerun()
 
         # 5. Settings Section (Interactive Expander)
         with st.expander("⚙️ System Settings", expanded=False):
@@ -113,14 +124,14 @@ def render_sidebar():
         with st.expander("❓ Help & Documentation", expanded=False):
             st.markdown(
                 """
-                <div style="font-size: 0.82rem; color: #4B5563; line-height: 1.6;">
+                <div style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
                     <b>Quick Links:</b><br>
-                    &bull; <a href="http://localhost:8000/docs" target="_blank" style="color: #2563EB; font-weight: 600;">REST API Docs (Swagger)</a><br>
-                    &bull; <a href="http://localhost:8000/" target="_blank" style="color: #2563EB; font-weight: 600;">Showcase Landing Website</a><br>
-                    &bull; <a href="http://localhost:8000/redoc" target="_blank" style="color: #2563EB; font-weight: 600;">ReDoc Specification</a><br><br>
+                    &bull; <a href="http://localhost:8000/docs" target="_blank" style="color: var(--primary); font-weight: 600;">REST API Docs (Swagger)</a><br>
+                    &bull; <a href="http://localhost:8000/" target="_blank" style="color: var(--primary); font-weight: 600;">Showcase Landing Website</a><br>
+                    &bull; <a href="http://localhost:8000/redoc" target="_blank" style="color: var(--primary); font-weight: 600;">ReDoc Specification</a><br><br>
                     <b>Keyboard Shortcuts:</b><br>
-                    &bull; <code style="background:#F1F5F9; padding:2px 4px; border-radius:4px;">R</code> : Refresh Data<br>
-                    &bull; <code style="background:#F1F5F9; padding:2px 4px; border-radius:4px;">C</code> : Clear Cache
+                    &bull; <code style="background: var(--border); padding:2px 4px; border-radius:4px;">R</code> : Refresh Data<br>
+                    &bull; <code style="background: var(--border); padding:2px 4px; border-radius:4px;">C</code> : Clear Cache
                 </div>
                 """,
                 unsafe_allow_html=True

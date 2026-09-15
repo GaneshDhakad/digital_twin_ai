@@ -57,12 +57,6 @@ venv.bak/
 *.model
 *.safetensors
 
-# Local trained model directory
-# Keep metadata/configuration JSON files tracked
-ml_models/trained/*/model.joblib
-
-# Backend model binaries
-backend/app/ml_models/*/model.joblib
 
 # ==========================================
 # Testing, Linting & Coverage
@@ -126,8 +120,3 @@ $RECYCLE.BIN/
 # ==========================================
 # Local path listing
 project_paths.txt
-
-# Allow deployed ML model artifacts
-!backend/app/ml_models/
-!backend/app/ml_models/*/
-!backend/app/ml_models/*/model.joblib

@@ -18,6 +18,8 @@ st.set_page_config(
 apply_stitch_theme()
 
 # Session State Initialization
+if "theme_mode" not in st.session_state:
+    st.session_state["theme_mode"] = "light"
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 if "token" not in st.session_state:
@@ -34,7 +36,7 @@ study_page = st.Page("views/study.py", title="Study & Academics", icon="📚")
 habits_page = st.Page("views/habits.py", title="Habits & Fitness", icon="🏋️")
 ai_intelligence_page = st.Page("views/ai_intelligence.py", title="AI Intelligence", icon="🤖")
 forecasting_page = st.Page("views/forecasting.py", title="AI Forecasting", icon="📈")
-simulation_page = st.Page("views/simulation.py", title="Decision Simulation", icon="🔮")
+simulation_page = st.Page("views/simulation.py", title="Decision Simulator", icon="🔮")
 
 st.session_state["login_page"] = login_page
 st.session_state["dashboard_page"] = dashboard_page
