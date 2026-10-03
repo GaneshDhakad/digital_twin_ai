@@ -104,7 +104,6 @@ digital_twin_ai/
     ├── 2_architecture.md          # Architecture and DB design
     ├── 3_bugs_and_fixes.md        # Bug tracking and resolutions
     ├── 4_tests.md                 # Testing strategy and results
-    └── 5_accuracy.md              # ML model metrics and evaluation
 ```
 
 ---
@@ -117,7 +116,6 @@ digital_twin_ai/
 | [Architecture](docs/2_architecture.md) | Layers, DB schema, auth flow, ML/AI integration, security |
 | [Bugs & Fixes](docs/3_bugs_and_fixes.md) | ORM issues found & fixed, open warnings |
 | [Tests](docs/4_tests.md) | Test results (134 passed), coverage areas, run instructions |
-| [Accuracy](docs/5_accuracy.md) | Real ML metrics from deployed models |
 
 ---
 
